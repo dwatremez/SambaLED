@@ -59,7 +59,7 @@ enum {
 #define KEY_ASTERISK 5910
 #define KEY_HASH 5920
 
-// Definition de l'instrument
+// Paramètres de l'instrument
 struct defineInstrument{
   char name;
   int type;
@@ -67,10 +67,22 @@ struct defineInstrument{
   int brightness;
 };
 
+// Variables globales
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(1, LEDPIN, NEO_GRB + NEO_KHZ800);;
+struct defineInstrument instrument;
+uint16_t script[2];
+
+// Définition des couleurs utilisées
+uint32_t sambaColor[3] = {
+  strip.Color(120, 130, 18),
+  strip.Color(255, 44, 15),
+  strip.Color(30, 120, 200)
+};
+uint32_t off = strip.Color(0,0,0);
+
 
 void setup()
 {
-  struct defineInstrument instrument;
 
   instrument.name = INSTRU;
   switch (INSTRU) {
@@ -140,14 +152,6 @@ void setup()
   // Définition du bandeau de LED
   Adafruit_NeoPixel strip = Adafruit_NeoPixel(instrument.nbLED, LEDPIN, NEO_GRB + NEO_KHZ800);
 
-  // Définition des couleurs utilisées
-  uint32_t sambaColor[3] = {
-    strip.Color(120, 130, 18),
-    strip.Color(255, 44, 15),
-    strip.Color(30, 120, 200)
-  };
-
-  uint32_t off = strip.Color(0,0,0);
 
 
   //Serial.begin(9600);
@@ -160,7 +164,40 @@ void setup()
   // Initialiser Communication RF
   mySwitch.enableReceive(0);
 
+  // Initialiser le script de démarrage
+
+  stripStart(5);
+
+
 }
+
+void stripStart(uint8_t nb)
+{
+    for(uint8_t start = 0; start < nb; start ++)
+    {
+      strip.setPixelColor(0, 255,0,0);
+      strip.setPixelColor(floor(instrument.nbLED / 4), 255,0,0);
+      strip.setPixelColor(floor(instrument.nbLED / 2), 255,0,0);
+      strip.setPixelColor(floor(instrument.nbLED / 4 * 3), 255,0,0);
+      strip.show();
+      delay(200);
+      strip.show();
+      strip.setPixelColor(0, off);
+      strip.setPixelColor(floor(instrument.nbLED / 4), off);
+      strip.setPixelColor(floor(instrument.nbLED / 2), off);
+      strip.setPixelColor(floor(instrument.nbLED / 4 * 3), off);
+      strip.show();
+      delay(200);
+      strip.show();
+    }
+
+
+  script[0] = KEY_0;
+  script[1] = 0;
+
+}
+
+
 
 void loop()
 {
