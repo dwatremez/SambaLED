@@ -13,7 +13,7 @@ RCSwitch mySwitch = RCSwitch();
 enum {
   AGOGO, SURDO1, SURDO2, SURDO3, CAIXA, REPIQUE,
   CHOCALHO, CUICA, TAMBORIM,
-  SURDO2_PETIT, TAMBORIM_PETIT
+  SURDO2_SMALL, TAMBORIM_SMALL
 };
 
 // Choix de l'instrument
@@ -33,8 +33,8 @@ enum {
 #define NB_LED_TAMBORIM 13
 
 // Nombre de LED exceptionnel
-#define NB_LED_SURDO_PETIT 40
-#define NB_LED_TAMBORIM_PETIT 12
+#define NB_LED_SURDO_SMALL 40
+#define NB_LED_TAMBORIM_SMALL 12
 
 // Luminosité
 #define BRIGHTNESS_SURDO 255
@@ -56,8 +56,8 @@ enum {
 #define KEY_8 5398
 #define KEY_9 5399
 #define KEY_0 5390
-#define KEY_ETOILE 5910
-#define KEY_DIESE 5920
+#define KEY_ASTERISK 5910
+#define KEY_HASH 5920
 
 // Definition de l'instrument
 struct defineInstrument{
@@ -119,14 +119,14 @@ void setup()
     instrument.nbLED = NB_LED_TAMBORIM;
     instrument.brightness = BRIGHTNESS_TAMBORIM;
     break;
-  case SURDO2_PETIT:
+  case SURDO2_SMALL:
     instrument.type = CIRCULAR;
-    instrument.nbLED = NB_LED_SURDO_PETIT;
+    instrument.nbLED = NB_LED_SURDO_SMALL;
     instrument.brightness = BRIGHTNESS_SURDO;
     break;
-  case TAMBORIM_PETIT:
+  case TAMBORIM_SMALL:
     instrument.type = CIRCULAR;
-    instrument.nbLED = NB_LED_TAMBORIM_PETIT;
+    instrument.nbLED = NB_LED_TAMBORIM_SMALL;
     instrument.brightness = BRIGHTNESS_TAMBORIM;
     break;
   default:
