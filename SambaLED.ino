@@ -150,6 +150,16 @@ uint32_t sambaColor[3] = {
 uint32_t off = bande.Color(0,0,0);
 
 
+//Serial.begin(9600);
+//Serial.println("Script Led");
+
+// Initialiser NeoPixel
+bande.begin();
+bande.setBrightness(instrument.lum);
+
+// Initialiser Communication RF
+mySwitch.enableReceive(0);
+
 }
 
 void loop()
