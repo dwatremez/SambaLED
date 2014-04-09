@@ -2,8 +2,7 @@
 #include <avr/interrupt.h>
 #include <RCSwitch.h>
 
-
-RCSwitch mySwitch = RCSwitch();
+#define DEBUG 0
 
 // Branchement physique sur la carte
 #define LEDPIN 6
@@ -68,7 +67,8 @@ struct defineInstrument{
 };
 
 // Variables globales
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(1, LEDPIN, NEO_GRB + NEO_KHZ800);;
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(1, LEDPIN, NEO_GRB + NEO_KHZ800);
+RCSwitch mySwitch = RCSwitch();
 struct defineInstrument instrument;
 uint16_t script[2];
 
@@ -83,7 +83,14 @@ uint32_t off = strip.Color(0,0,0);
 
 void setup()
 {
+  // Pour debug
+  if(DEBUG)
+  {
+    Serial.begin(9600);
+    Serial.println("Script Led");
+  }
 
+  // Définition de l'instrument
   instrument.name = INSTRU;
   switch (INSTRU) {
   case AGOGO:
@@ -152,11 +159,6 @@ void setup()
   // Définition du bandeau de LED
   Adafruit_NeoPixel strip = Adafruit_NeoPixel(instrument.nbLED, LEDPIN, NEO_GRB + NEO_KHZ800);
 
-
-
-  //Serial.begin(9600);
-  //Serial.println("Script Led");
-
   // Initialiser NeoPixel
   strip.begin();
   strip.setBrightness(instrument.brightness);
@@ -164,8 +166,7 @@ void setup()
   // Initialiser Communication RF
   mySwitch.enableReceive(0);
 
-  // Initialiser le script de démarrage
-
+  // Démarrage
   stripStart(5);
 
 
@@ -191,7 +192,7 @@ void stripStart(uint8_t nb)
       strip.show();
     }
 
-
+  // Définir le premier script à effectuer
   script[0] = KEY_0;
   script[1] = 0;
 
