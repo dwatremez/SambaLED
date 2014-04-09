@@ -11,9 +11,9 @@ RCSwitch mySwitch = RCSwitch();
 
 // Liste des instruments
 enum {
-	AGOGO, SURDO1, SURDO2, SURDO3, CAIXA, REPIQUE, 
-	CHOCALHO, CUICA, TAMBORIM, 
-	SURDO2_PETIT, TAMBORIM_PETIT
+  AGOGO, SURDO1, SURDO2, SURDO3, CAIXA, REPIQUE,
+  CHOCALHO, CUICA, TAMBORIM,
+  SURDO2_PETIT, TAMBORIM_PETIT
 };
 
 // Choix de l'instrument
@@ -61,19 +61,19 @@ enum {
 
 // Definition de l'instrument
 struct caracInstrument{
-	char nom;
-	int type;
-	int nbLED;
-	int lum;
+  char nom;
+  int type;
+  int nbLED;
+  int lum;
 };
 
 
 void setup()
 {
-struct caracInstrument instrument; 
+  struct caracInstrument instrument;
 
-instrument.nom = INSTRU;
-switch (INSTRU) {
+  instrument.nom = INSTRU;
+  switch (INSTRU) {
   case AGOGO:
     instrument.type = TYPE_INSTRUMENT_DROIT;
     instrument.nbLED = NOMBRE_LEDS_AGOGO;
@@ -134,31 +134,31 @@ switch (INSTRU) {
     instrument.nbLED = 1;
     instrument.lum = 100;
     break;
-}
+  }
 
 
-// Définition du bandeau de LED
-Adafruit_NeoPixel bande = Adafruit_NeoPixel(instrument.nbLED, LEDPIN, NEO_GRB + NEO_KHZ800);
+  // Définition du bandeau de LED
+  Adafruit_NeoPixel bande = Adafruit_NeoPixel(instrument.nbLED, LEDPIN, NEO_GRB + NEO_KHZ800);
 
-// Définition des couleurs utilisées
-uint32_t sambaColor[3] = {
-	bande.Color(120, 130, 18),
-	bande.Color(255, 44, 15),
-	bande.Color(30, 120, 200)
-};
+  // Définition des couleurs utilisées
+  uint32_t sambaColor[3] = {
+    bande.Color(120, 130, 18),
+    bande.Color(255, 44, 15),
+    bande.Color(30, 120, 200)
+  };
 
-uint32_t off = bande.Color(0,0,0);
+  uint32_t off = bande.Color(0,0,0);
 
 
-//Serial.begin(9600);
-//Serial.println("Script Led");
+  //Serial.begin(9600);
+  //Serial.println("Script Led");
 
-// Initialiser NeoPixel
-bande.begin();
-bande.setBrightness(instrument.lum);
+  // Initialiser NeoPixel
+  bande.begin();
+  bande.setBrightness(instrument.lum);
 
-// Initialiser Communication RF
-mySwitch.enableReceive(0);
+  // Initialiser Communication RF
+  mySwitch.enableReceive(0);
 
 }
 
