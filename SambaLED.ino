@@ -27,6 +27,7 @@ enum {
 #define NOMBRE_LEDS_AGOGO 5
 #define NOMBRE_LEDS_CHOCA 7
 #define NOMBRE_LEDS_CAIXA 28
+#define NOMBRE_LEDS_CUICA 15 // à définir
 #define NOMBRE_LEDS_REPIQUE 28
 #define NOMBRE_LEDS_SURDO 42
 #define NOMBRE_LEDS_TAMBORIM 13
@@ -39,9 +40,10 @@ enum {
 #define LUM_SURDO 255
 #define LUM_CAIXA 255
 #define LUM_REPIQUE 255
-#define LUM_AGOGO 150
-#define LUM_CHOCA 200
-#define LUM_TAMBORIM 150
+#define LUM_CUICA 255
+#define LUM_AGOGO 150 // à définir
+#define LUM_CHOCA 200 // à définir
+#define LUM_TAMBORIM 150 // à définir
 
 // Messages de la télécommande
 #define TOUCHE_1 5391
@@ -62,6 +64,7 @@ struct caracInstrument{
 	char nom;
 	int type;
 	int nbLED;
+	int lum;
 };
 
 
@@ -74,50 +77,62 @@ switch (INSTRU) {
   case AGOGO:
     instrument.type = TYPE_INSTRUMENT_DROIT;
     instrument.nbLED = NOMBRE_LEDS_AGOGO;
+    instrument.lum = LUM_AGOGO;
     break;
   case SURDO1:
     instrument.type = TYPE_INSTRUMENT_ROND;
     instrument.nbLED = NOMBRE_LEDS_SURDO;
+    instrument.lum = LUM_SURDO;
     break;
   case SURDO2:
     instrument.type = TYPE_INSTRUMENT_ROND;
     instrument.nbLED = NOMBRE_LEDS_SURDO;
+    instrument.lum = LUM_SURDO;
     break;
   case SURDO3:
     instrument.type = TYPE_INSTRUMENT_ROND;
     instrument.nbLED = NOMBRE_LEDS_SURDO;
+    instrument.lum = LUM_SURDO;
     break;
   case CAIXA:
     instrument.type = TYPE_INSTRUMENT_ROND;
     instrument.nbLED = NOMBRE_LEDS_CAIXA;
+    instrument.lum = LUM_CAIXA;
     break;
   case REPIQUE:
     instrument.type = TYPE_INSTRUMENT_ROND;
-    instrument.nbLED = NOMBRE_LEDS_CAIXA;
+    instrument.nbLED = NOMBRE_LEDS_REPIQUE;
+    instrument.lum = LUM_REPIQUE;
     break;
   case CHOCALHO:
     instrument.type = TYPE_INSTRUMENT_DROIT;
     instrument.nbLED = NOMBRE_LEDS_CHOCA;
+    instrument.lum = LUM_CHOCA;
     break;
   case CUICA:
-    instrument.type = TYPE_INSTRUMENT_DROIT;
-    instrument.nbLED = NOMBRE_LEDS_CHOCA;
+    instrument.type = TYPE_INSTRUMENT_ROND;
+    instrument.nbLED = NOMBRE_LEDS_CUICA;
+    instrument.lum = LUM_CUICA;
     break;
   case TAMBORIM:
     instrument.type = TYPE_INSTRUMENT_ROND;
     instrument.nbLED = NOMBRE_LEDS_TAMBORIM;
+    instrument.lum = LUM_TAMBORIM;
     break;
   case SURDO2_PETIT:
     instrument.type = TYPE_INSTRUMENT_ROND;
     instrument.nbLED = NOMBRE_LEDS_SURDO_PETIT;
+    instrument.lum = LUM_SURDO;
     break;
   case TAMBORIM_PETIT:
     instrument.type = TYPE_INSTRUMENT_ROND;
     instrument.nbLED = NOMBRE_LEDS_TAMBORIM_PETIT;
+    instrument.lum = LUM_TAMBORIM;
     break;
   default:
     instrument.type = TYPE_INSTRUMENT_DROIT;
     instrument.nbLED = 1;
+    instrument.lum = 100;
     break;
 }
 
@@ -133,6 +148,7 @@ uint32_t sambaColor[3] = {
 };
 
 uint32_t off = bande.Color(0,0,0);
+
 
 }
 
