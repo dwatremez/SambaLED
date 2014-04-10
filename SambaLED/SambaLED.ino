@@ -291,6 +291,7 @@ void playScript(uint16_t s)
 			break;
 		case KEY_0:
 			// Définir le script ici !
+			colorFull(off);
 			break;
 		case KEY_1:
 			// Définir le script ici !
@@ -349,61 +350,46 @@ void colorFull(uint32_t c)
 	}
 }
 
-void colorWipe(uint32_t c) 
+void colorWipeForward(uint32_t c, uint8_t offset) 
 {
-	if(indexLED < instrument.nbLED) {
-		strip.setPixelColor(indexLED, c); 
+	if(indexLED - offset >= 0) 
+	{
+		strip.setPixelColor(indexLED - offset, c); 
 	}
 	else 
 	{
-		strip.setPixelColor(instrument.nbLED + indexLED, c); 
+		strip.setPixelColor(instrument.nbLED + indexLED - offset, c); 
+	}
+}
+
+void colorWipeBackward(uint32_t c, uint8_t offset)
+{
+	if(indexLED - offset >= 0)
+	{
+		strip.setPixelColor(instrument.nbLED - indexLED - 1 + offset, c);	
+	}
+	else
+	{
+		strip.setPixelColor(offset - indexLED - 1, c);
 	}
 }
 
 void colorPathForward(uint32_t cp, uint32_t cr, uint8_t l)
 {
 	// LED PATH
-	if(indexLED < instrument.nbLED)
-	{
-		strip.setPixelColor(indexLED, cp);
-	}
-	else
-	{
-		strip.setPixelColor(instrument.nbLED + indexLED, cp);
-	}
+	colorWipeForward(cp,0);
 
 	// LED REMAIN
-	if(indexLED >= l)
-	{
-		strip.setPixelColor(indexLED - l, cr);
-	}
-	else
-	{
-		strip.setPixelColor(instrument.nbLED + indexLED - l, cr);
-	}
+	colorWipeForward(cr,l);
 }
 
 void colorPathBackward(uint32_t cp, uint32_t cr, uint8_t l)
 {
 	// LED PATH
-	if(indexLED <= instrument.nbLED)
-	{
-		strip.setPixelColor(instrument.nbLED - indexLED - 1, cp);	
-	}
-	else
-	{
-		strip.setPixelColor(2 * instrument.nbLED - indexLED, cp);
-	}
+	colorWipeBackward(cp,0);
 
 	// LED REMAIN
-	if(indexLED >= l + 1)
-	{
-		strip.setPixelColor(instrument.nbLED - indexLED + l, cr);
-	}
-	else
-	{
-		strip.setPixelColor(l - indexLED, cr);
-	}
+	colorWipeBackward(cr,l);
 }
 
 void colorPathBackForth(uint32_t cp, uint32_t cr, uint8_t l)
@@ -420,17 +406,10 @@ void colorPathBackForth(uint32_t cp, uint32_t cr, uint8_t l)
 		if(indexLED == instrument.nbLED - 1)
 			animDirection = 0;		
 	}
-	
 }
+
+
 // Changement de couleurs
-uint32_t oneColorEachLoop()
-{
-	if(indexLED == instrument.nbLED - 1)
-		indexColor = (indexColor + 1)%(sizeof(sambaColors));
-
-	return sambaColors[indexColor];
-}
-
 uint32_t oneColorEach(uint8_t nb)
 {
 	if(indexLED%nb == 0)
@@ -439,6 +418,12 @@ uint32_t oneColorEach(uint8_t nb)
 	return sambaColors[indexColor];
 	
 }
+
+uint32_t oneColorEachLoop()
+{
+	return oneColorEach(instrument.nbLED - 1);
+}
+
 
 
 void loop()
