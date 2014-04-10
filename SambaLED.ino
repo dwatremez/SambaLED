@@ -372,6 +372,22 @@ void colorPathBackward(uint32_t cp, uint32_t cr, uint8_t l)
 	}
 }
 
+void colorPathBackForth(uint32_t cp, uint32_t cr, uint8_t l)
+{
+	if(animDirection == 0)
+	{
+		colorPathForward(cp,cr,l);
+		if(indexLED == instrument.nbLED - 1)
+			animDirection = 1;
+	}
+	else
+	{
+		colorPathBackward(cp,cr,l);
+		if(indexLED == instrument.nbLED - 1)
+			animDirection = 0;		
+	}
+	
+}
 // Changement de couleurs
 uint32_t oneColorEachLoop()
 {
