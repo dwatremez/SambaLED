@@ -19,8 +19,9 @@ enum {
 #define INSTRU AGOGO
 
 // Forme de l'instrument
-#define CIRCULAR 0
-#define BAR 1
+#define BAR 0
+#define CIRCULAR 1
+#define BIG_CIRCULAR 2
 
 // Nombre de LED par defaut
 #define NB_LED_AGOGO 5
@@ -71,9 +72,10 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(1, LEDPIN, NEO_GRB + NEO_KHZ800);
 RCSwitch mySwitch = RCSwitch();
 struct defineInstrument instrument;
 uint16_t indexLED = 0;
-uint8_t step = 1;
+uint8_t animStep = 1;
 uint16_t script[2]; // les nouveaux et anciens scripts (ordre défini par indexScript)
 uint8_t indexScript = 1;
+uint32_t animDelay = 1000;
 
 // Définition des couleurs utilisées
 uint32_t sambaColor[4] = {
@@ -103,17 +105,17 @@ void setup()
 		instrument.brightness = BRIGHTNESS_AGOGO;
 		break;
 	case SURDO1:
-		instrument.type = CIRCULAR;
+		instrument.type = BIG_CIRCULAR;
 		instrument.nbLED = NB_LED_SURDO;
 		instrument.brightness = BRIGHTNESS_SURDO;
 		break;
 	case SURDO2:
-		instrument.type = CIRCULAR;
+		instrument.type = BIG_CIRCULAR;
 		instrument.nbLED = NB_LED_SURDO;
 		instrument.brightness = BRIGHTNESS_SURDO;
 		break;
 	case SURDO3:
-		instrument.type = CIRCULAR;
+		instrument.type = BIG_CIRCULAR;
 		instrument.nbLED = NB_LED_SURDO;
 		instrument.brightness = BRIGHTNESS_SURDO;
 		break;
@@ -143,7 +145,7 @@ void setup()
 		instrument.brightness = BRIGHTNESS_TAMBORIM;
 		break;
 	case SURDO2_SMALL:
-		instrument.type = CIRCULAR;
+		instrument.type = BIG_CIRCULAR;
 		instrument.nbLED = NB_LED_SURDO_SMALL;
 		instrument.brightness = BRIGHTNESS_SURDO;
 		break;
@@ -302,6 +304,14 @@ void playScript(uint16_t s)
 	}
 }
 
+void colorFull(uint32_t c)
+{
+	for(uint16_t i = 0; i < instrument.nbLED; i++)
+	{
+		strip.setPixelColor(i,c);
+	}
+}
+
 
 void loop()
 {
@@ -311,9 +321,16 @@ void loop()
 	// Jouer les 2 scripts enregistrés
 	playScript(script[0]);
 	playScript(script[1]);	
+
+	// Mise à jour du bandeau
+	strip.show();
+
+	// Attente entre deux intérations de l'animation
+	delay( (0.5 + 0.25 * instrument.type * (1 + instrument.type)) * (int)(animDelay/instrument.nbLED));
+	
 	
 	// Se placer sur la LED suivante
-	indexLED = indexLED + step;
+	indexLED = indexLED + animStep;
 
 	// Fin de bandeau
 	if(indexLED >= instrument.nbLED)
