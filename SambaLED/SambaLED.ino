@@ -291,6 +291,7 @@ void playScript(uint16_t s)
 			break;
 		case KEY_0:
 			// Définir le script ici !
+			colorFull(off);
 			break;
 		case KEY_1:
 			// Définir le script ici !
@@ -423,14 +424,6 @@ void colorPathBackForth(uint32_t cp, uint32_t cr, uint8_t l)
 	
 }
 // Changement de couleurs
-uint32_t oneColorEachLoop()
-{
-	if(indexLED == instrument.nbLED - 1)
-		indexColor = (indexColor + 1)%(sizeof(sambaColors));
-
-	return sambaColors[indexColor];
-}
-
 uint32_t oneColorEach(uint8_t nb)
 {
 	if(indexLED%nb == 0)
@@ -439,6 +432,12 @@ uint32_t oneColorEach(uint8_t nb)
 	return sambaColors[indexColor];
 	
 }
+
+uint32_t oneColorEachLoop()
+{
+	return oneColorEach(instrument.nbLED - 1);
+}
+
 
 
 void loop()
