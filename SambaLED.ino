@@ -170,7 +170,7 @@ void setup()
 	// Initialiser Communication RF
 	mySwitch.enableReceive(0);
 
-	// Démarrage
+	// Démarrage avec 5 flashs
 	stripStart(5);
 
 
@@ -246,6 +246,7 @@ void listenRF()
 				case 5399:
 					if(value != script[0] && value != script[1])
 					{
+						// Définir le nouveau script à partir du message
 						script[indexScript] = value;
 						indexScript = (indexScript +1)%2;
 					}
@@ -255,13 +256,66 @@ void listenRF()
 	}
 }
 
+void playScript(uint16_t s)
+{
+	switch(s)
+	{
+		default:
+			// Définir le script ici !
+			break;
+		case KEY_0:
+			// Définir le script ici !
+			break;
+		case KEY_1:
+			// Définir le script ici !
+			break;
+		case KEY_2:
+			// Définir le script ici !
+			break;
+		case KEY_3:
+			// Définir le script ici !
+			break;
+		case KEY_4:
+			// Définir le script ici !
+			break;
+		case KEY_5:
+			// Définir le script ici !
+			break;
+		case KEY_6:
+			// Définir le script ici !
+			break;
+		case KEY_7:
+			// Définir le script ici !
+			break;
+		case KEY_8:
+			// Définir le script ici !
+			break;
+		case KEY_9:
+			// Définir le script ici !
+			break;
+		case KEY_ASTERISK:
+			// Définir le script ici !
+			break;
+		case KEY_HASH:
+			// Définir le script ici !
+			break;
+	}
+}
+
 
 void loop()
 {
-	listenRF();
+	// Écouter messages radio
+	listenRF(); 
 
-
+	// Jouer les 2 scripts enregistrés
+	playScript(script[0]);
+	playScript(script[1]);	
+	
+	// Se placer sur la LED suivante
 	indexLED = indexLED + step;
+
+	// Fin de bandeau
 	if(indexLED >= instrument.nbLED)
 	{
 		if(DEBUG) // Affichage scripts en cours
