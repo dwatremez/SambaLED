@@ -79,11 +79,15 @@ uint32_t animDelay = 1000;
 uint8_t animDirection = 0;
 
 // Définition des couleurs utilisées
-uint32_t sambaColor[4] = {
-	strip.Color(120, 130, 18),	//Yellow
-	strip.Color(255, 44, 15),	//Red
-	strip.Color(30, 120, 200),	//Blue
-	strip.Color(100,207,19)		//Green
+uint32_t sambaYellow = strip.Color(120, 130, 18);
+uint32_t sambaRed = strip.Color(255, 44, 15);
+uint32_t sambaBlue = strip.Color(30, 120, 200);
+uint32_t sambaGreen = strip.Color(100, 207, 19);
+uint32_t sambaColors[4] = {
+	sambaYellow,
+	sambaRed,
+	sambaBlue,
+	sambaGreen
 };
 uint32_t off = strip.Color(0,0,0);
 uint8_t indexColor = 0;
@@ -392,17 +396,17 @@ void colorPathBackForth(uint32_t cp, uint32_t cr, uint8_t l)
 uint32_t oneColorEachLoop()
 {
 	if(indexLED == instrument.nbLED - 1)
-		indexColor = (indexColor + 1)%(sizeof(sambaColor));
+		indexColor = (indexColor + 1)%(sizeof(sambaColors));
 
-	return sambaColor[indexColor];
+	return sambaColors[indexColor];
 }
 
 uint32_t oneColorEach(uint8_t nb)
 {
 	if(indexLED%nb == 0)
-		indexColor = (indexColor + 1)%(sizeof(sambaColor));
+		indexColor = (indexColor + 1)%(sizeof(sambaColors));
 
-	return sambaColor[indexColor];
+	return sambaColors[indexColor];
 	
 }
 
