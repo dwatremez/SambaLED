@@ -85,6 +85,7 @@ uint32_t sambaColor[4] = {
 	strip.Color(100,207,19)		//Green
 };
 uint32_t off = strip.Color(0,0,0);
+uint8_t indexColor = 0;
 
 
 void setup()
@@ -323,6 +324,15 @@ void colorWipe(uint32_t c, uint8_t offset)
 	}
 }
 
+uint32_t oneColorEachLoop()
+{
+	if(indexLED == instrument.nbLED - 1)
+		indexColor = (indexColor + 1)%(sizeof(sambaColor));
+
+	return sambaColor[indexColor];
+	
+
+}
 
 
 void loop()
