@@ -70,7 +70,10 @@ struct defineInstrument{
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(1, LEDPIN, NEO_GRB + NEO_KHZ800);
 RCSwitch mySwitch = RCSwitch();
 struct defineInstrument instrument;
-uint16_t script[2];
+uint16_t indexLED = 0;
+uint8_t step = 1;
+uint16_t script[2]; // le script joué ainsi que le futur script
+uint8_t indexScript = 1; // l'index des script
 
 // Définition des couleurs utilisées
 uint32_t sambaColor[3] = {
@@ -198,8 +201,78 @@ void stripStart(uint8_t nb)
 
 }
 
+void listenRF()
+{
+	if(mySwitch.available())
+	{
+		int value = mySwitch.getReceivedValue();
+		if(value == 0)
+		{
+			if(DEBUG)
+				Serial.print("Unknown encoding");
+		}
+		else
+		{
+			if(DEBUG)
+			{
+				Serial.print("Received ");
+				Serial.print(mySwitch.getReceivedValue());
+				Serial.print(" / ");
+				Serial.print(mySwitch.getReceivedBitlength());
+				Serial.print("bit ");
+				Serial.print("Protocol: ");
+				Serial.println(mySwitch.getReceivedProtocol());
+			}
+			switch(value)
+			{
+				default :
+					if(DEBUG)
+						Serial.println("Unknown message");
+					break;
+				case 5910:
+					break;
+				case 5920:
+					break;
+				case 5390:
+				case 5391:
+				case 5392:
+				case 5393:
+				case 5394:
+				case 5395:
+				case 5396:
+				case 5397:
+				case 5398:
+				case 5399:
+					if(value != script[0] && value != script[1])
+					{
+						script[indexScript] = value;
+						indexScript = (indexScript +1)%2;
+					}
+					break;
+			}
+		}
+	}
+}
 
 
 void loop()
 {
+	listenRF();
+	indexLED = indexLED + step;
+	if(indexLED >= instrument.nbLED)
+	{
+		if(DEBUG) // Affichage scripts en cours
+		{
+			Serial.print("S1 = ");
+			Serial.print(script[0]);
+			Serial.print(" ------------- S2 = ");
+			Serial.print(script[2]);
+		}
+
+		indexLED = 0; // retour au début du bandeau
+		
+		if(script[0] != 0 && script[1] != 0)
+			script[indexScript] = 0;	// arrêter le précédent script en fin de boucle		
+	}
+
 }
