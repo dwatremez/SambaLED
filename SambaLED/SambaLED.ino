@@ -45,6 +45,11 @@ enum {
 #define BRIGHTNESS_CHOCA 200 // à définir
 #define BRIGHTNESS_TAMBORIM 150 // à définir
 
+// Emplacement général du percussioniste (devant, milieu, derrière)
+#define FIRST 0
+#define BETWEEN 1
+#define LAST 2
+
 // Messages de la télécommande
 #define KEY_1 5391
 #define KEY_2 5392
@@ -65,6 +70,7 @@ struct defineInstrument{
 	int type;
 	int nbLED;
 	int brightness;
+	int place;
 };
 
 // Variables globales
@@ -110,56 +116,67 @@ void setup()
 		instrument.type = BAR;
 		instrument.nbLED = NB_LED_AGOGO;
 		instrument.brightness = BRIGHTNESS_AGOGO;
+		instrument.place = FIRST;
 		break;
 	case SURDO1:
 		instrument.type = BIG_CIRCULAR;
 		instrument.nbLED = NB_LED_SURDO;
 		instrument.brightness = BRIGHTNESS_SURDO;
+		instrument.place = LAST;
 		break;
 	case SURDO2:
 		instrument.type = BIG_CIRCULAR;
 		instrument.nbLED = NB_LED_SURDO;
 		instrument.brightness = BRIGHTNESS_SURDO;
+		instrument.place = LAST;
 		break;
 	case SURDO3:
 		instrument.type = BIG_CIRCULAR;
 		instrument.nbLED = NB_LED_SURDO;
 		instrument.brightness = BRIGHTNESS_SURDO;
+		instrument.place = LAST;
 		break;
 	case CAIXA:
 		instrument.type = CIRCULAR;
 		instrument.nbLED = NB_LED_CAIXA;
 		instrument.brightness = BRIGHTNESS_CAIXA;
+		instrument.place = BETWEEN;
 		break;
 	case REPIQUE:
 		instrument.type = CIRCULAR;
 		instrument.nbLED = NB_LED_REPIQUE;
 		instrument.brightness = BRIGHTNESS_REPIQUE;
+		instrument.place = BETWEEN;
 		break;
 	case CHOCALHO:
 		instrument.type = BAR;
 		instrument.nbLED = NB_LED_CHOCA;
 		instrument.brightness = BRIGHTNESS_CHOCA;
+		instrument.place = FIRST;
 		break;
 	case CUICA:
 		instrument.type = CIRCULAR;
 		instrument.nbLED = NB_LED_CUICA;
 		instrument.brightness = BRIGHTNESS_CUICA;
+		instrument.place = BETWEEN;
 		break;
 	case TAMBORIM:
 		instrument.type = CIRCULAR;
 		instrument.nbLED = NB_LED_TAMBORIM;
 		instrument.brightness = BRIGHTNESS_TAMBORIM;
+		instrument.place = FIRST;
 		break;
 	case SURDO2_SMALL:
 		instrument.type = BIG_CIRCULAR;
 		instrument.nbLED = NB_LED_SURDO_SMALL;
 		instrument.brightness = BRIGHTNESS_SURDO;
+		instrument.place = LAST;
 		break;
 	case TAMBORIM_SMALL:
 		instrument.type = CIRCULAR;
 		instrument.nbLED = NB_LED_TAMBORIM_SMALL;
 		instrument.brightness = BRIGHTNESS_TAMBORIM;
+		instrument.place = FIRST;
 		break;
 	default:
 		instrument.type = BAR;
@@ -240,9 +257,9 @@ void listenRF()
 						Serial.println("Unknown message");
 					break;
 				case 5910:
-					break;
+					break;	// Les pulses plus tard
 				case 5920:
-					break;
+					break;	// Les pulses plus tard
 				case 5390:
 				case 5391:
 				case 5392:
