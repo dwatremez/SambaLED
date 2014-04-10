@@ -10,9 +10,9 @@
 
 // Liste des instruments
 enum {
-  AGOGO, SURDO1, SURDO2, SURDO3, CAIXA, REPIQUE,
-  CHOCALHO, CUICA, TAMBORIM,
-  SURDO2_SMALL, TAMBORIM_SMALL
+	AGOGO, SURDO1, SURDO2, SURDO3, CAIXA, REPIQUE,
+	CHOCALHO, CUICA, TAMBORIM,
+	SURDO2_SMALL, TAMBORIM_SMALL
 };
 
 // Choix de l'instrument
@@ -60,10 +60,10 @@ enum {
 
 // Paramètres de l'instrument
 struct defineInstrument{
-  char name;
-  int type;
-  int nbLED;
-  int brightness;
+	char name;
+	int type;
+	int nbLED;
+	int brightness;
 };
 
 // Variables globales
@@ -77,127 +77,127 @@ uint8_t indexScript = 1; // l'index des script
 
 // Définition des couleurs utilisées
 uint32_t sambaColor[3] = {
-  strip.Color(120, 130, 18),
-  strip.Color(255, 44, 15),
-  strip.Color(30, 120, 200)
+	strip.Color(120, 130, 18),
+	strip.Color(255, 44, 15),
+	strip.Color(30, 120, 200)
 };
 uint32_t off = strip.Color(0,0,0);
 
 
 void setup()
 {
-  // Pour debug
-  if(DEBUG)
-  {
-    Serial.begin(9600);
-    Serial.println("Script Led");
-  }
+	// Pour debug
+	if(DEBUG)
+	{
+		Serial.begin(9600);
+		Serial.println("Script Led");
+	}
 
-  // Définition de l'instrument
-  instrument.name = INSTRU;
-  switch (INSTRU) {
-  case AGOGO:
-    instrument.type = BAR;
-    instrument.nbLED = NB_LED_AGOGO;
-    instrument.brightness = BRIGHTNESS_AGOGO;
-    break;
-  case SURDO1:
-    instrument.type = CIRCULAR;
-    instrument.nbLED = NB_LED_SURDO;
-    instrument.brightness = BRIGHTNESS_SURDO;
-    break;
-  case SURDO2:
-    instrument.type = CIRCULAR;
-    instrument.nbLED = NB_LED_SURDO;
-    instrument.brightness = BRIGHTNESS_SURDO;
-    break;
-  case SURDO3:
-    instrument.type = CIRCULAR;
-    instrument.nbLED = NB_LED_SURDO;
-    instrument.brightness = BRIGHTNESS_SURDO;
-    break;
-  case CAIXA:
-    instrument.type = CIRCULAR;
-    instrument.nbLED = NB_LED_CAIXA;
-    instrument.brightness = BRIGHTNESS_CAIXA;
-    break;
-  case REPIQUE:
-    instrument.type = CIRCULAR;
-    instrument.nbLED = NB_LED_REPIQUE;
-    instrument.brightness = BRIGHTNESS_REPIQUE;
-    break;
-  case CHOCALHO:
-    instrument.type = BAR;
-    instrument.nbLED = NB_LED_CHOCA;
-    instrument.brightness = BRIGHTNESS_CHOCA;
-    break;
-  case CUICA:
-    instrument.type = CIRCULAR;
-    instrument.nbLED = NB_LED_CUICA;
-    instrument.brightness = BRIGHTNESS_CUICA;
-    break;
-  case TAMBORIM:
-    instrument.type = CIRCULAR;
-    instrument.nbLED = NB_LED_TAMBORIM;
-    instrument.brightness = BRIGHTNESS_TAMBORIM;
-    break;
-  case SURDO2_SMALL:
-    instrument.type = CIRCULAR;
-    instrument.nbLED = NB_LED_SURDO_SMALL;
-    instrument.brightness = BRIGHTNESS_SURDO;
-    break;
-  case TAMBORIM_SMALL:
-    instrument.type = CIRCULAR;
-    instrument.nbLED = NB_LED_TAMBORIM_SMALL;
-    instrument.brightness = BRIGHTNESS_TAMBORIM;
-    break;
-  default:
-    instrument.type = BAR;
-    instrument.nbLED = 1;
-    instrument.brightness = 100;
-    break;
-  }
+	// Définition de l'instrument
+	instrument.name = INSTRU;
+	switch (INSTRU) {
+	case AGOGO:
+		instrument.type = BAR;
+		instrument.nbLED = NB_LED_AGOGO;
+		instrument.brightness = BRIGHTNESS_AGOGO;
+		break;
+	case SURDO1:
+		instrument.type = CIRCULAR;
+		instrument.nbLED = NB_LED_SURDO;
+		instrument.brightness = BRIGHTNESS_SURDO;
+		break;
+	case SURDO2:
+		instrument.type = CIRCULAR;
+		instrument.nbLED = NB_LED_SURDO;
+		instrument.brightness = BRIGHTNESS_SURDO;
+		break;
+	case SURDO3:
+		instrument.type = CIRCULAR;
+		instrument.nbLED = NB_LED_SURDO;
+		instrument.brightness = BRIGHTNESS_SURDO;
+		break;
+	case CAIXA:
+		instrument.type = CIRCULAR;
+		instrument.nbLED = NB_LED_CAIXA;
+		instrument.brightness = BRIGHTNESS_CAIXA;
+		break;
+	case REPIQUE:
+		instrument.type = CIRCULAR;
+		instrument.nbLED = NB_LED_REPIQUE;
+		instrument.brightness = BRIGHTNESS_REPIQUE;
+		break;
+	case CHOCALHO:
+		instrument.type = BAR;
+		instrument.nbLED = NB_LED_CHOCA;
+		instrument.brightness = BRIGHTNESS_CHOCA;
+		break;
+	case CUICA:
+		instrument.type = CIRCULAR;
+		instrument.nbLED = NB_LED_CUICA;
+		instrument.brightness = BRIGHTNESS_CUICA;
+		break;
+	case TAMBORIM:
+		instrument.type = CIRCULAR;
+		instrument.nbLED = NB_LED_TAMBORIM;
+		instrument.brightness = BRIGHTNESS_TAMBORIM;
+		break;
+	case SURDO2_SMALL:
+		instrument.type = CIRCULAR;
+		instrument.nbLED = NB_LED_SURDO_SMALL;
+		instrument.brightness = BRIGHTNESS_SURDO;
+		break;
+	case TAMBORIM_SMALL:
+		instrument.type = CIRCULAR;
+	instrument.nbLED = NB_LED_TAMBORIM_SMALL;
+		instrument.brightness = BRIGHTNESS_TAMBORIM;
+		break;
+	default:
+		instrument.type = BAR;
+		instrument.nbLED = 1;
+		instrument.brightness = 100;
+		break;
+	  }
 
 
-  // Définition du bandeau de LED
-  Adafruit_NeoPixel strip = Adafruit_NeoPixel(instrument.nbLED, LEDPIN, NEO_GRB + NEO_KHZ800);
+	// Définition du bandeau de LED
+	Adafruit_NeoPixel strip = Adafruit_NeoPixel(instrument.nbLED, LEDPIN, NEO_GRB + NEO_KHZ800);
 
-  // Initialiser NeoPixel
-  strip.begin();
-  strip.setBrightness(instrument.brightness);
+	// Initialiser NeoPixel
+	strip.begin();
+	strip.setBrightness(instrument.brightness);
 
-  // Initialiser Communication RF
-  mySwitch.enableReceive(0);
+	// Initialiser Communication RF
+	mySwitch.enableReceive(0);
 
-  // Démarrage
-  stripStart(5);
+	// Démarrage
+	stripStart(5);
 
 
 }
 
 void stripStart(uint8_t nb)
 {
-    for(uint8_t start = 0; start < nb; start ++)
-    {
-      strip.setPixelColor(0, 255,0,0);
-      strip.setPixelColor(floor(instrument.nbLED / 4), 255,0,0);
-      strip.setPixelColor(floor(instrument.nbLED / 2), 255,0,0);
-      strip.setPixelColor(floor(instrument.nbLED / 4 * 3), 255,0,0);
-      strip.show();
-      delay(200);
-      strip.show();
-      strip.setPixelColor(0, off);
-      strip.setPixelColor(floor(instrument.nbLED / 4), off);
-      strip.setPixelColor(floor(instrument.nbLED / 2), off);
-      strip.setPixelColor(floor(instrument.nbLED / 4 * 3), off);
-      strip.show();
-      delay(200);
-      strip.show();
-    }
+	for(uint8_t start = 0; start < nb; start ++)
+	{
+		strip.setPixelColor(0, 255,0,0);
+		strip.setPixelColor(floor(instrument.nbLED / 4), 255,0,0);
+		strip.setPixelColor(floor(instrument.nbLED / 2), 255,0,0);
+		strip.setPixelColor(floor(instrument.nbLED / 4 * 3), 255,0,0);
+		strip.show();
+		delay(200);
+		strip.show();
+		strip.setPixelColor(0, off);
+		strip.setPixelColor(floor(instrument.nbLED / 4), off);
+		strip.setPixelColor(floor(instrument.nbLED / 2), off);
+		strip.setPixelColor(floor(instrument.nbLED / 4 * 3), off);
+		strip.show();
+		delay(200);
+		strip.show();
+	}
 
-  // Définir le premier script à effectuer
-  script[0] = KEY_0;
-  script[1] = 0;
+	// Définir le premier script à effectuer
+	script[0] = KEY_0;
+	script[1] = 0;
 
 }
 
