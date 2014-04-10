@@ -72,14 +72,15 @@ RCSwitch mySwitch = RCSwitch();
 struct defineInstrument instrument;
 uint16_t indexLED = 0;
 uint8_t step = 1;
-uint16_t script[2]; // le script joué ainsi que le futur script
-uint8_t indexScript = 1; // l'index des script
+uint16_t script[2]; // les nouveaux et anciens scripts (ordre défini par indexScript)
+uint8_t indexScript = 1;
 
 // Définition des couleurs utilisées
-uint32_t sambaColor[3] = {
-	strip.Color(120, 130, 18),
-	strip.Color(255, 44, 15),
-	strip.Color(30, 120, 200)
+uint32_t sambaColor[4] = {
+	strip.Color(120, 130, 18),	//Yellow
+	strip.Color(255, 44, 15),	//Red
+	strip.Color(30, 120, 200),	//Blue
+	strip.Color(100,207,19)		//Green
 };
 uint32_t off = strip.Color(0,0,0);
 
@@ -148,7 +149,7 @@ void setup()
 		break;
 	case TAMBORIM_SMALL:
 		instrument.type = CIRCULAR;
-	instrument.nbLED = NB_LED_TAMBORIM_SMALL;
+		instrument.nbLED = NB_LED_TAMBORIM_SMALL;
 		instrument.brightness = BRIGHTNESS_TAMBORIM;
 		break;
 	default:
@@ -258,6 +259,8 @@ void listenRF()
 void loop()
 {
 	listenRF();
+
+
 	indexLED = indexLED + step;
 	if(indexLED >= instrument.nbLED)
 	{
