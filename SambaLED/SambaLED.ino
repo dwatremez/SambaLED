@@ -428,13 +428,13 @@ void colorGauge(uint32_t cp, uint32_t cr)
 {	
 	if(animDirection == 0)
 	{
-		colorPathForward(cp,cp,l);
+		colorPathForward(cp,cp,instrument.nbLED);
 		if(indexLED == instrument.nbLED - 1)
 			animDirection = 1;
 	}
 	else
 	{
-		colorPathBackward(cr,cr,l);
+		colorPathBackward(cr,cr,instrument.nbLED);
 		if(indexLED == instrument.nbLED - 1)
 			animDirection = 0;		
 	}
