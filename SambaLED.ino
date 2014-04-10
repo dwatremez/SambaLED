@@ -312,6 +312,18 @@ void colorFull(uint32_t c)
 	}
 }
 
+void colorWipe(uint32_t c, uint8_t offset) 
+{
+	if(indexLED - offset < instrument.nbLED) {
+		strip.setPixelColor(indexLED - offset, c); 
+	}
+	else 
+	{
+		strip.setPixelColor(instrument.nbLED + indexLED, c); 
+	}
+}
+
+
 
 void loop()
 {
