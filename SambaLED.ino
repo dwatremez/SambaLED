@@ -305,6 +305,7 @@ void playScript(uint16_t s)
 	}
 }
 
+// Animations
 void colorFull(uint32_t c)
 {
 	for(uint16_t i = 0; i < instrument.nbLED; i++)
@@ -324,6 +325,30 @@ void colorWipe(uint32_t c, uint8_t offset)
 	}
 }
 
+void colorPath(uint32_t cp, uint32_t cr, uint8_t l, uint8_t offset)
+{
+	// LED PATH
+	if(indexLED - offset < instrument.nbLED)
+	{
+		strip.setPixelColor(indexLED- offset, cp);
+	}
+	else
+	{
+		strip.setPixelColor(instrument.nbLED + indexLED - offset, cp);
+	}
+
+	// LED REMAIN
+	if(indexLED >= l + offset)
+	{
+		strip.setPixelColor(indexLED - l - offset, cr);
+	}
+	else
+	{
+		strip.setPixelColor(instrument.nbLED + indexLED - l - offset, cr);
+	}
+}
+
+// Changement de couleurs
 uint32_t oneColorEachLoop()
 {
 	if(indexLED == instrument.nbLED - 1)
