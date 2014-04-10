@@ -71,6 +71,7 @@ struct defineInstrument{
 	int nbLED;
 	int brightness;
 	int place;
+	int lenght;
 };
 
 // Variables globales
@@ -184,6 +185,8 @@ void setup()
 		instrument.brightness = 100;
 		break;
 	}
+
+	instrument.lenght = ceil(instrument.nbLED/5);
 
 
 	// Définition du bandeau de LED
@@ -309,15 +312,15 @@ void playScript(uint16_t s)
 			// Définir le script ici !
 			if(instrument.type == BAR)
 			{
-				colorPathBackForth(sambaYellow, off, ceil(instrument.nbLED/5));
+				colorPathBackForth(sambaYellow, off, instrument.lenght);
 			}
 			if(instrument.type == CIRCULAR)
 			{
-				colorPathForward(sambaGreen, off, ceil(instrument.nbLED/5));
+				colorPathForward(sambaGreen, off, instrument.lenght);
 			}
 			if(instrument.type == BIG_CIRCULAR)
 			{
-				colorPathForward(sambaRed, off, ceil(instrument.nbLED/5));
+				colorPathForward(sambaRed, off, instrument.lenght);
 			}
 			break;
 		case KEY_6:
