@@ -298,12 +298,36 @@ void playScript(uint16_t s)
 			break;
 		case KEY_1:
 			// Définir le script ici !
+			if(instrument.type == BAR)
+			{
+				colorPathBackForth(oneColorEachLoop(), off, instrument.lenght);
+			}
+			if(instrument.type == CIRCULAR)
+			{
+				colorPathForward(oneColorEachLoop(), off, instrument.lenght);
+			}
+			if(instrument.type == BIG_CIRCULAR)
+			{
+				colorPathForward(oneColorEachLoop(), off, instrument.lenght);
+			}
 			break;
 		case KEY_2:
 			// Définir le script ici !
 			break;
 		case KEY_3:
 			// Définir le script ici !
+			if(instrument.type == BAR)
+			{
+				colorPathBackForth(oneColorEach(2 * instrument.lenght), off, instrument.lenght);
+			}
+			if(instrument.type == CIRCULAR)
+			{
+				colorPathForward(oneColorEach(2 * instrument.lenght), off, instrument.lenght);
+			}
+			if(instrument.type == BIG_CIRCULAR)
+			{
+				colorPathForward(oneColorEach(2 * instrument.lenght), off, instrument.lenght);
+			}
 			break;
 		case KEY_4:
 			// Définir le script ici !
