@@ -423,6 +423,25 @@ void colorPathBackForth(uint32_t cp, uint32_t cr, uint8_t l)
 	}
 	
 }
+
+void colorGauge(uint32_t cp, uint32_t cr)
+{	
+	if(animDirection == 0)
+	{
+		colorPathForward(cp,cp,l);
+		if(indexLED == instrument.nbLED - 1)
+			animDirection = 1;
+	}
+	else
+	{
+		colorPathBackward(cr,cr,l);
+		if(indexLED == instrument.nbLED - 1)
+			animDirection = 0;		
+	}
+	
+}
+
+
 // Changement de couleurs
 uint32_t oneColorEach(uint8_t nb)
 {
