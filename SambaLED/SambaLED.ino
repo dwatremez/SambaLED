@@ -306,6 +306,18 @@ void playScript(uint16_t s)
 			break;
 		case KEY_5:
 			// Définir le script ici !
+			if(instrument.type == BAR)
+			{
+				colorPathBackForth(sambaYellow, off, ceil(instrument.nbLED/5));
+			}
+			if(instrument.type == CIRCULAR)
+			{
+				colorPathForward(sambaGreen, off, ceil(instrument.nbLED/5));
+			}
+			if(instrument.type == BIG_CIRCULAR)
+			{
+				colorPathForward(sambaRed, off, ceil(instrument.nbLED/5));
+			}
 			break;
 		case KEY_6:
 			// Définir le script ici !
