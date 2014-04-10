@@ -352,12 +352,15 @@ void playScript(uint16_t s)
 			break;
 		case KEY_7:
 			// Définir le script ici !
+			colorGauge(sambaGreen, sambaRed);
 			break;
 		case KEY_8:
 			// Définir le script ici !
+			colorWipe(sambaBlue);
 			break;
 		case KEY_9:
 			// Définir le script ici !
+			colorGauge(oneColorEachLoop(), oneColorEachLoop());
 			break;
 		case KEY_ASTERISK:
 			// Définir le script ici !
