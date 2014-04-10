@@ -76,6 +76,7 @@ uint8_t animStep = 1;
 uint16_t script[2]; // les nouveaux et anciens scripts (ordre défini par indexScript)
 uint8_t indexScript = 1;
 uint32_t animDelay = 1000;
+uint8_t animDirection = 0;
 
 // Définition des couleurs utilisées
 uint32_t sambaColor[4] = {
@@ -314,10 +315,10 @@ void colorFull(uint32_t c)
 	}
 }
 
-void colorWipe(uint32_t c, uint8_t offset) 
+void colorWipe(uint32_t c) 
 {
-	if(indexLED - offset < instrument.nbLED) {
-		strip.setPixelColor(indexLED - offset, c); 
+	if(indexLED < instrument.nbLED) {
+		strip.setPixelColor(indexLED, c); 
 	}
 	else 
 	{
@@ -325,26 +326,49 @@ void colorWipe(uint32_t c, uint8_t offset)
 	}
 }
 
-void colorPath(uint32_t cp, uint32_t cr, uint8_t l, uint8_t offset)
+void colorPathForward(uint32_t cp, uint32_t cr, uint8_t l)
 {
 	// LED PATH
-	if(indexLED - offset < instrument.nbLED)
+	if(indexLED < instrument.nbLED)
 	{
-		strip.setPixelColor(indexLED- offset, cp);
+		strip.setPixelColor(indexLED, cp);
 	}
 	else
 	{
-		strip.setPixelColor(instrument.nbLED + indexLED - offset, cp);
+		strip.setPixelColor(instrument.nbLED + indexLED, cp);
 	}
 
 	// LED REMAIN
-	if(indexLED >= l + offset)
+	if(indexLED >= l)
 	{
-		strip.setPixelColor(indexLED - l - offset, cr);
+		strip.setPixelColor(indexLED - l, cr);
 	}
 	else
 	{
-		strip.setPixelColor(instrument.nbLED + indexLED - l - offset, cr);
+		strip.setPixelColor(instrument.nbLED + indexLED - l, cr);
+	}
+}
+
+void colorPathBackward(uint32_t cp, uint32_t cr, uint8_t l)
+{
+	// LED PATH
+	if(indexLED <= instrument.nbLED)
+	{
+		strip.setPixelColor(instrument.nbLED - indexLED - 1, cp);	
+	}
+	else
+	{
+		strip.setPixelColor(2 * instrument.nbLED - indexLED, cp);
+	}
+
+	// LED REMAIN
+	if(indexLED >= l + 1)
+	{
+		strip.setPixelColor(instrument.nbLED - indexLED + l, cr);
+	}
+	else
+	{
+		strip.setPixelColor(l - indexLED, cr);
 	}
 }
 
