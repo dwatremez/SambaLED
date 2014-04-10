@@ -104,7 +104,8 @@ void setup()
 
 	// Définition de l'instrument
 	instrument.name = INSTRU;
-	switch (INSTRU) {
+	switch (INSTRU) 
+	{
 	case AGOGO:
 		instrument.type = BAR;
 		instrument.nbLED = NB_LED_AGOGO;
@@ -165,7 +166,7 @@ void setup()
 		instrument.nbLED = 1;
 		instrument.brightness = 100;
 		break;
-	  }
+	}
 
 
 	// Définition du bandeau de LED
