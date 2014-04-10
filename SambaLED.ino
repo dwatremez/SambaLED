@@ -330,8 +330,15 @@ uint32_t oneColorEachLoop()
 		indexColor = (indexColor + 1)%(sizeof(sambaColor));
 
 	return sambaColor[indexColor];
-	
+}
 
+uint32_t oneColorEach(uint8_t nb)
+{
+	if(indexLED%nb == 0)
+		indexColor = (indexColor + 1)%(sizeof(sambaColor));
+
+	return sambaColor[indexColor];
+	
 }
 
 
