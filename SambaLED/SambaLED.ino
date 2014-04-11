@@ -310,69 +310,39 @@ void playScript(uint16_t s)
 			break;
 		case KEY_1:
 			// Définir le script ici !
-			if(instrument.type == BAR)
-			{
-				colorPathBackForth(oneColorEachLoop(), off, instrument.lenght);
-			}
-			if(instrument.type == CIRCULAR)
-			{
-				colorPathForward(oneColorEachLoop(), off, instrument.lenght);
-			}
-			if(instrument.type == BIG_CIRCULAR)
-			{
-				colorPathForward(oneColorEachLoop(), off, instrument.lenght);
-			}
+			Mangueira();
 			break;
 		case KEY_2:
 			// Définir le script ici !
+                        Girls();
 			break;
 		case KEY_3:
 			// Définir le script ici !
-			if(instrument.type == BAR)
-			{
-				colorPathBackForth(oneColorEach(2 * instrument.lenght), off, instrument.lenght);
-			}
-			if(instrument.type == CIRCULAR)
-			{
-				colorPathForward(oneColorEach(2 * instrument.lenght), off, instrument.lenght);
-			}
-			if(instrument.type == BIG_CIRCULAR)
-			{
-				colorPathForward(oneColorEach(2 * instrument.lenght), off, instrument.lenght);
-			}
+			Brasil();
 			break;
 		case KEY_4:
 			// Définir le script ici !
+                        Geo();
 			break;
 		case KEY_5:
 			// Définir le script ici !
-			if(instrument.type == BAR)
-			{
-				colorPathBackForth(sambaYellow, off, instrument.lenght);
-			}
-			if(instrument.type == CIRCULAR)
-			{
-				colorPathForward(sambaGreen, off, instrument.lenght);
-			}
-			if(instrument.type == BIG_CIRCULAR)
-			{
-				colorPathForward(sambaRed, off, instrument.lenght);
-			}
+			Geo();
 			break;
 		case KEY_6:
 			// Définir le script ici !
+                        Geo();
 			break;
 		case KEY_7:
 			// Définir le script ici !
-			colorGauge(sambaGreen, sambaRed);
+			Drums();
 			break;
 		case KEY_8:
 			// Définir le script ici !
-			colorWipe(sambaBlue);
+			Sambagogo();
 			break;
 		case KEY_9:
 			// Définir le script ici !
-			colorGauge(oneColorEachLoop(), oneColorEachLoop());
+			Wave();
 			break;
 		case KEY_ASTERISK:
 			// Définir le script ici !
