@@ -271,20 +271,20 @@ void listenRF()
 					if(DEBUG)
 						Serial.println("Unknown message");
 					break;
-				case 5910:
+				case KEY_ASTERISK:
 					break;	// Les pulses plus tard
-				case 5920:
+				case KEY_HASH:
 					break;	// Les pulses plus tard
-				case 5390:
-				case 5391:
-				case 5392:
-				case 5393:
-				case 5394:
-				case 5395:
-				case 5396:
-				case 5397:
-				case 5398:
-				case 5399:
+				case KEY_0:
+				case KEY_1:
+				case KEY_2:
+				case KEY_3:
+				case KEY_4:
+				case KEY_5:
+				case KEY_6:
+				case KEY_7:
+				case KEY_8:
+				case KEY_9:
 					if(value != script[0] && value != script[1])
 					{
 						// Définir le nouveau script à partir du message
