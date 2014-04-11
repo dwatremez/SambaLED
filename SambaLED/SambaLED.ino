@@ -206,7 +206,6 @@ void setup()
 
 	// Initialiser NeoPixel
 	strip.begin();
-	strip.setBrightness(instrument.brightness);
 
 	// Initialiser Communication RF
 	mySwitch.enableReceive(0);
@@ -238,7 +237,7 @@ void stripStart(uint8_t nb)
 	}
 
 	// Définir le premier script à effectuer
-	script[0] = KEY_0;
+	script[0] = KEY_3;
 	script[1] = 0;
 
 }
@@ -506,7 +505,7 @@ void loop()
 			Serial.print("S1 = ");
 			Serial.print(script[0]);
 			Serial.print(" ------------- S2 = ");
-			Serial.print(script[2]);
+			Serial.println(script[2]);
 		}
 
 		indexLED = 0; // retour au début du bandeau
