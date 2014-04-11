@@ -466,6 +466,10 @@ void colorPathBackForth(uint32_t cp, uint32_t cr, uint8_t l)
 	
 }
 
+void colorGauge(uint32_t c)
+{
+        colorGauge(c,c);
+}
 void colorGauge(uint32_t cp, uint32_t cr)
 {	
 	if(animDirection == 0)
