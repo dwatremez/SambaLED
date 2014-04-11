@@ -16,7 +16,8 @@ enum {
 };
 
 // Choix de l'instrument
-#define INSTRU AGOGO
+#define INSTRU TAMBORIM_SMALL
+#define NBPIX 12
 
 // Forme de l'instrument
 #define BAR 0
@@ -41,9 +42,9 @@ enum {
 #define BRIGHTNESS_CAIXA 255
 #define BRIGHTNESS_REPIQUE 255
 #define BRIGHTNESS_CUICA 255
-#define BRIGHTNESS_AGOGO 150 // à définir
-#define BRIGHTNESS_CHOCA 200 // à définir
-#define BRIGHTNESS_TAMBORIM 150 // à définir
+#define BRIGHTNESS_AGOGO 120
+#define BRIGHTNESS_CHOCA 200
+#define BRIGHTNESS_TAMBORIM 120
 
 // Emplacement général du percussioniste (devant, milieu, derrière)
 #define FIRST 0
@@ -75,7 +76,7 @@ struct defineInstrument{
 };
 
 // Variables globales
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(1, LEDPIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(NBPIX, LEDPIN, NEO_GRB + NEO_KHZ800);
 RCSwitch mySwitch = RCSwitch();
 struct defineInstrument instrument;
 uint16_t indexLED = 0;
@@ -86,15 +87,30 @@ uint32_t animDelay = 1000;
 uint8_t animDirection = 0;
 
 // Définition des couleurs utilisées
-uint32_t sambaYellow = strip.Color(120, 130, 18);
+
+#define NBCOLOR 10
+
+uint32_t sambaWhite = strip.Color(255, 255, 255);
 uint32_t sambaRed = strip.Color(255, 44, 15);
-uint32_t sambaBlue = strip.Color(30, 120, 200);
-uint32_t sambaGreen = strip.Color(100, 207, 19);
-uint32_t sambaColors[4] = {
-	sambaYellow,
-	sambaRed,
-	sambaBlue,
-	sambaGreen
+uint32_t sambaBlue = strip.Color(44,28,255);
+uint32_t sambaAzur = strip.Color(30, 120, 200);
+uint32_t sambaGreen = strip.Color(0, 255, 0);
+uint32_t sambaEmeraud = strip.Color(1,215,88);
+uint32_t sambaFushia = strip.Color(255, 62, 150);
+uint32_t sambaHotPink = strip.Color(255,105,180);
+uint32_t sambaYellow = strip.Color(255,255,0); 
+uint32_t sambaCarrot = strip.Color(244,102,27);
+uint32_t sambaColors[NBCOLOR] = {
+	sambaFushia,
+        sambaBlue,
+        sambaEmeraud, //
+        sambaYellow,
+        sambaAzur,
+        sambaHotPink,
+	sambaWhite,
+        sambaRed,
+        sambaGreen,
+        sambaCarrot        
 };
 uint32_t off = strip.Color(0,0,0);
 uint8_t indexColor = 0;
@@ -186,11 +202,7 @@ void setup()
 		break;
 	}
 
-	instrument.lenght = ceil(instrument.nbLED/5);
-
-
-	// Définition du bandeau de LED
-	Adafruit_NeoPixel strip = Adafruit_NeoPixel(instrument.nbLED, LEDPIN, NEO_GRB + NEO_KHZ800);
+	instrument.lenght = ceil(instrument.nbLED/5);   
 
 	// Initialiser NeoPixel
 	strip.begin();
@@ -476,7 +488,10 @@ void colorGauge(uint32_t cp, uint32_t cr)
 uint32_t oneColorEach(uint8_t nb)
 {
 	if(indexLED%nb == 0)
-		indexColor = (indexColor + 1)%(sizeof(sambaColors));
+		indexColor++;
+
+        if(indexColor >= NBCOLOR)
+                indexColor = 0;
 
 	return sambaColors[indexColor];
 	
@@ -484,7 +499,7 @@ uint32_t oneColorEach(uint8_t nb)
 
 uint32_t oneColorEachLoop()
 {
-	return oneColorEach(instrument.nbLED - 1);
+	return oneColorEach(instrument.nbLED);
 }
 
 
@@ -499,6 +514,7 @@ void loop()
 	playScript(script[1]);	
 
 	// Mise à jour du bandeau
+    strip.setBrightness(instrument.brightness);
 	strip.show();
 
 	// Attente entre deux intérations de l'animation
