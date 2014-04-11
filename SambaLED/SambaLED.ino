@@ -96,21 +96,21 @@ uint32_t sambaBlue = strip.Color(44,28,255);
 uint32_t sambaAzur = strip.Color(30, 120, 200);
 uint32_t sambaGreen = strip.Color(0, 255, 0);
 uint32_t sambaEmeraud = strip.Color(1,215,88);
-uint32_t sambaFushia = strip.Color(255, 62, 150);
-uint32_t sambaHotPink = strip.Color(255,105,180);
+uint32_t sambaFuchsia = strip.Color(255, 62, 150);
+uint32_t sambaCuisseDeNimpheEmue = strip.Color(255,105,180);
 uint32_t sambaYellow = strip.Color(255,255,0); 
 uint32_t sambaCarrot = strip.Color(244,102,27);
 uint32_t sambaColors[NBCOLOR] = {
-	sambaFushia,
-        sambaBlue,
-        sambaEmeraud, //
+	sambaFuchsia,
         sambaYellow,
+        sambaBlue,
+        sambaCarrot,  
+        sambaEmeraud,
+        sambaCuisseDeNimpheEmue,
         sambaAzur,
-        sambaHotPink,
 	sambaWhite,
         sambaRed,
-        sambaGreen,
-        sambaCarrot        
+        sambaGreen
 };
 uint32_t off = strip.Color(0,0,0);
 uint8_t indexColor = 0;
@@ -301,53 +301,40 @@ void playScript(uint16_t s)
 	switch(s)
 	{
 		default:
-			// Définir le script ici !
 			break;
 		case KEY_0:
-			// Définir le script ici !
 			colorFull(off);
 			break;
 		case KEY_1:
-			// Définir le script ici !
 			Mangueira();
 			break;
 		case KEY_2:
-			// Définir le script ici !
                         Girls();
 			break;
 		case KEY_3:
-			// Définir le script ici !
 			Brasil();
 			break;
 		case KEY_4:
-			// Définir le script ici !
-                        Geo();
+                        Geo(1);
 			break;
 		case KEY_5:
-			// Définir le script ici !
-			Geo();
+			Geo(3);
 			break;
 		case KEY_6:
-			// Définir le script ici !
-                        Geo();
+                        Geo(9);
 			break;
 		case KEY_7:
-			// Définir le script ici !
 			Drums();
 			break;
 		case KEY_8:
-			// Définir le script ici !
 			Sambagogo();
 			break;
 		case KEY_9:
-			// Définir le script ici !
 			Wave();
 			break;
 		case KEY_ASTERISK:
-			// Définir le script ici !
 			break;
 		case KEY_HASH:
-			// Définir le script ici !
 			break;
 	}
 }
@@ -487,7 +474,7 @@ void loop()
 	playScript(script[1]);	
 
 	// Mise à jour du bandeau
-    strip.setBrightness(instrument.brightness);
+        strip.setBrightness(instrument.brightness);
 	strip.show();
 
 	// Attente entre deux intérations de l'animation
@@ -554,13 +541,13 @@ void Brasil()  // 6
 void Mangueira()  // 1
 {
       if(instrument.type == BAR)
-            colorPathBackForth(sambaFushia, sambaGreen, 1);
+            colorPathBackForth(sambaFuchsia, sambaGreen, 1);
       
       if(instrument.type == CIRCULAR || instrument.name == SURDO3)
-            colorPathForward(sambaGreen, sambaFushia, 0.5 * instrument.nbLED);
+            colorPathForward(sambaGreen, sambaFuchsia, 0.5 * instrument.nbLED);
       
       if(instrument.name == SURDO1)
-            colorPathForward(sambaFushia, off, 0.5 * instrument.nbLED);
+            colorPathForward(sambaFuchsia, off, 0.5 * instrument.nbLED);
             
       if(instrument.name == SURDO2)
             colorPathForward(sambaGreen, off, 0.5 * instrument.nbLED);
@@ -571,14 +558,14 @@ void Girls()
 {
   
       if(instrument.type == BAR)
-            colorGauge(sambaEmeraud, sambaHotPink);
+            colorGauge(sambaEmeraud, sambaCuisseDeNimpheEmueCuisseDeNimpheEmue);
       if(instrument.type == CIRCULAR)
-            colorGauge(sambaEmeraud, sambaHotPink);
+            colorGauge(sambaEmeraud, sambaCuisseDeNimpheEmue);
             
       if(instrument.name == SURDO1)
             colorPathBackward(sambaEmeraud, off, instrument.lenght);
       if(instrument.name == SURDO2)
-            colorPathForward(sambaHotPink, off, instrument.lenght);  
+            colorPathForward(sambaCuisseDeNimpheEmue, off, instrument.lenght);  
       
       if(instrument.name == SURDO3)
       {
@@ -590,7 +577,7 @@ void Girls()
             }
             else
             {
-                  colorPathBackward(sambaHotPink, off, instrument.lenght);
+                  colorPathBackward(sambaCuisseDeNimpheEmue, off, instrument.lenght);
                   if(indexLED == instrument.nbLED - 1)
                         animDirection = 0;
             }     
@@ -599,16 +586,31 @@ void Girls()
 }
 
 
-void Geo()
+void Geo(uint8_t index)
 {
+    
     if(instrument.place == FIRST)
-          colorPathBackForth(sambaYellow, off, instrument.lenght);
+          colorPathBackForth(sambaColors[index], off, instrument.lenght);
 
     if(instrument.place == BETWEEN)
-  	  colorPathForward(sambaBlue, off, instrument.lenght);
+          if(index + 1 < NBCOLOR)
+          {
+                colorPathForward(sambaColors[index + 1], off, instrument.lenght);
+          }
+          else
+          {
+                colorPathForward(sambaColors[index + 1 - NBCOLOR], off, instrument.lenght);
+          }
 			
     if(instrument.place == LAST)
-    	  colorPathForward(sambaRed, off, instrument.lenght);
+          if(index + 7 < NBCOLOR)
+          {
+    	        colorPathForward(sambaColors[index + 7], off, instrument.lenght);
+          }
+          else
+          {
+                colorPathForward(sambaColors[index + 7 - NBCOLOR], off, instrument.lenght);
+          }
 			
 }
 
