@@ -7,18 +7,18 @@
 RCSwitch mySwitch = RCSwitch();
 
 // Messages de la télécommande
-#define KEY_1 5391
-#define KEY_2 5392
-#define KEY_3 5393
-#define KEY_4 5394
-#define KEY_5 5395
-#define KEY_6 5396
-#define KEY_7 5397
-#define KEY_8 5398
-#define KEY_9 5399
-#define KEY_0 5390
-#define KEY_ASTERISK 5910
-#define KEY_HASH 5920
+#define KEY_1 6918
+#define KEY_2 6833
+#define KEY_3 6748
+#define KEY_4 6663
+#define KEY_5 6578
+#define KEY_6 6493
+#define KEY_7 6308
+#define KEY_8 6223
+#define KEY_9 6138
+#define KEY_0 6053
+#define KEY_ASTERISK 5970
+#define KEY_HASH 5380
 
 // KeyPad
 const byte rows = 4; //four rows
