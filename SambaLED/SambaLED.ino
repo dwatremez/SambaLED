@@ -558,7 +558,7 @@ void Girls()
 {
   
       if(instrument.type == BAR)
-            colorGauge(sambaEmeraud, sambaCuisseDeNimpheEmueCuisseDeNimpheEmue);
+            colorGauge(sambaEmeraud, sambaCuisseDeNimpheEmue);
       if(instrument.type == CIRCULAR)
             colorGauge(sambaEmeraud, sambaCuisseDeNimpheEmue);
             
