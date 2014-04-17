@@ -443,6 +443,17 @@ uint32_t oneColorEachLoop()
   return oneColorEach(instrument.nbLED);
 }
 
+uint8_t changeAfterSomeSurdoRevolutions(uint8_t nb, uint8_t rev)
+{
+  if(indexLED == instrument.nbLED - 1)
+    varAnimation += 2 * instrument.type;
+    
+  if(varAnimation >= nb * rev * 2 * BIG_CIRCULAR)
+    varAnimation = 0;
+    
+  return floor(varAnimation / (2 * rev * BIG_CIRCULAR));
+}
+
 
 
 void loop()
@@ -588,15 +599,37 @@ void Geo(uint8_t index)
     geoColor[2] = sambaColors[index + 7 - NBCOLOR];
   }
 
+  // geoIndexColor est l'index de la couleur de l'animation
+  uint8_t geoIndexColor = changeAfterSomeSurdoRevolutions(3,5);
+
   // Définition par placement
   if(instrument.place == FIRST)
-    colorPathBackForth(geoColor[0], off, instrument.lenght);
+    colorPathBackForth(geoColor[geoIndexColor], off, instrument.lenght);
+
 
   if(instrument.place == BETWEEN)
-    colorPathForward(geoColor[1], off, instrument.lenght);
+  {
+    if(geoIndexColor + 1 < 3)
+    {
+      colorPathForward(geoColor[geoIndexColor + 1], off, instrument.lenght);
+    }
+    else
+    {
+      colorPathForward(geoColor[geoIndexColor + 1 - 3], off, instrument.lenght);
+    }
+  }
 
-  if(instrument.place == LAST)
-    colorPathForward(geoColor[2], off, instrument.lenght);
+  if(instrument.place == LAST)  
+  {
+    if(geoIndexColor + 2 < 3)
+    {
+      colorPathForward(geoColor[geoIndexColor + 2], off, instrument.lenght);
+    }
+    else
+    {
+      colorPathForward(geoColor[geoIndexColor + 2 - 3], off, instrument.lenght);
+    }
+  }
 
 }
 
@@ -649,6 +682,7 @@ void Wave()
 
   }
 }
+
 
 
 
