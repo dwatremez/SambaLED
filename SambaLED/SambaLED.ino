@@ -69,6 +69,7 @@ struct defineInstrument{
   int brightness;
   int place;
   int lenght;
+  int delayCoef;
 };
 
 // Variables globales
@@ -179,6 +180,7 @@ void setup()
   }
 
   instrument.lenght = ceil(instrument.nbLED/5);   
+  instrument.delayCoef = 0.5 + 0.25 * instrument.type * (1 + instrument.type);
 
   // Initialiser NeoPixel
   strip.begin();
@@ -454,7 +456,7 @@ void loop()
   strip.show();
 
   // Attente entre deux intérations de l'animation
-  delay( (0.5 + 0.25 * instrument.type * (1 + instrument.type)) * (int)(animDelay/instrument.nbLED));
+  delay(instrument.delayCoef * (int)(animDelay/instrument.nbLED));
 
 
   // Se placer sur la LED suivante
