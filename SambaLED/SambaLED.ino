@@ -112,6 +112,8 @@ uint32_t sambaColors[NBCOLOR] = {
 uint32_t off = strip.Color(0,0,0);
 uint8_t indexColor = 0;
 
+uint32_t geoColor[3];
+
 
 void setup()
 {
@@ -566,29 +568,34 @@ void Girls()
 
 void Geo(uint8_t index)
 {
+  // Définition GeoColor
+  geoColor[0] = sambaColors[index];
+  if(index + 1 < NBCOLOR)
+  {
+    geoColor[1] = sambaColors[index + 1];
+  }
+  else
+  {
+    geoColor[1] = sambaColors[index + 1 - NBCOLOR];
+  }
+  if(index + 7 < NBCOLOR)
+  {
+    geoColor[2] = sambaColors[index + 7];
+  }
+  else
+  {
+    geoColor[2] = sambaColors[index + 7 - NBCOLOR];
+  }
 
+  // Définition par placement
   if(instrument.place == FIRST)
-    colorPathBackForth(sambaColors[index], off, instrument.lenght);
+    colorPathBackForth(geoColor[0], off, instrument.lenght);
 
   if(instrument.place == BETWEEN)
-    if(index + 1 < NBCOLOR)
-    {
-      colorPathForward(sambaColors[index + 1], off, instrument.lenght);
-    }
-    else
-    {
-      colorPathForward(sambaColors[index + 1 - NBCOLOR], off, instrument.lenght);
-    }
+    colorPathForward(geoColor[1], off, instrument.lenght);
 
   if(instrument.place == LAST)
-    if(index + 7 < NBCOLOR)
-    {
-      colorPathForward(sambaColors[index + 7], off, instrument.lenght);
-    }
-    else
-    {
-      colorPathForward(sambaColors[index + 7 - NBCOLOR], off, instrument.lenght);
-    }
+    colorPathForward(geoColor[2], off, instrument.lenght);
 
 }
 
@@ -641,4 +648,6 @@ void Wave()
 
   }
 }
+
+
 
