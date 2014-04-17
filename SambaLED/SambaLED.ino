@@ -82,6 +82,7 @@ uint16_t script[2]; // les nouveaux et anciens scripts (ordre défini par indexS
 uint8_t indexScript = 1;
 uint32_t animDelay = 1000;
 uint8_t animDirection = 0;
+uint8_t varAnimation = 0; // variable pour les variations dans les animations
 
 // Définition des couleurs utilisées
 
@@ -490,17 +491,17 @@ void Brasil()
 {
   if(instrument.type == BAR)
   {
-    if(animDirection == 0)
+    if(varAnimation == 0)
     {
       colorWipe(sambaYellow);
       if(indexLED == instrument.nbLED - 1)
-        animDirection = 1;
+        varAnimation = 1;
     }
     else
     {
       colorWipe(sambaGreen);
       if(indexLED == instrument.nbLED - 1)
-        animDirection = 0;
+        varAnimation = 0;
     }     
   }
 
@@ -549,17 +550,17 @@ void Girls()
 
   if(instrument.name == SURDO3)
   {
-    if(animDirection == 0)
+    if(varAnimation == 0)
     {
       colorPathForward(sambaEmeraud, off, instrument.lenght);
       if(indexLED == instrument.nbLED - 1)
-        animDirection = 1;
+        varAnimation = 1;
     }
     else
     {
       colorPathBackward(sambaCuisseDeNimpheEmue, off, instrument.lenght);
       if(indexLED == instrument.nbLED - 1)
-        animDirection = 0;
+        varAnimation = 0;
     }     
   }
 
