@@ -82,7 +82,7 @@ uint16_t script[2]; // les nouveaux et anciens scripts (ordre défini par indexS
 uint8_t indexScript = 1;
 uint32_t animDelay = 1000;
 uint8_t animDirection = 0;
-uint8_t varAnimation = 0; // variable pour les variations dans les animations
+uint8_t animVariation = 0; // variable pour les variations dans les animations
 
 // Définition des couleurs utilisées
 
@@ -270,6 +270,10 @@ void listenRF()
           // Définir le nouveau script à partir du message
           script[indexScript] = value;
           indexScript = (indexScript +1)%2;
+          
+          // Initialiser les variables d'animation et de direction au changement de script
+          animVariation = 0;
+          animDirection = 0;
         }
         break;
       }
@@ -446,12 +450,12 @@ uint32_t oneColorEachLoop()
 uint8_t changeAfterSomeSurdoRevolutions(uint8_t nb, uint8_t rev)
 {
   if(indexLED == instrument.nbLED - 1)
-    varAnimation += 2 * instrument.type;
+    animVariation += 2 * instrument.type;
     
-  if(varAnimation >= nb * rev * 2 * BIG_CIRCULAR)
-    varAnimation = 0;
+  if(animVariation >= nb * rev * 2 * BIG_CIRCULAR)
+    animVariation = 0;
     
-  return floor(varAnimation / (2 * rev * BIG_CIRCULAR));
+  return floor(animVariation / (2 * rev * BIG_CIRCULAR));
 }
 
 
@@ -502,17 +506,17 @@ void Brasil()
 {
   if(instrument.type == BAR)
   {
-    if(varAnimation == 0)
+    if(animVariation == 0)
     {
       colorWipe(sambaYellow);
       if(indexLED == instrument.nbLED - 1)
-        varAnimation = 1;
+        animVariation = 1;
     }
     else
     {
       colorWipe(sambaGreen);
       if(indexLED == instrument.nbLED - 1)
-        varAnimation = 0;
+        animVariation = 0;
     }     
   }
 
@@ -561,17 +565,17 @@ void Girls()
 
   if(instrument.name == SURDO3)
   {
-    if(varAnimation == 0)
+    if(animVariation == 0)
     {
       colorPathForward(sambaEmeraud, off, instrument.lenght);
       if(indexLED == instrument.nbLED - 1)
-        varAnimation = 1;
+        animVariation = 1;
     }
     else
     {
       colorPathBackward(sambaCuisseDeNimpheEmue, off, instrument.lenght);
       if(indexLED == instrument.nbLED - 1)
-        varAnimation = 0;
+        animVariation = 0;
     }     
   }
 
