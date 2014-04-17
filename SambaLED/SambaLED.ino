@@ -12,11 +12,19 @@
 enum {
 	AGOGO, SURDO1, SURDO2, SURDO3, CAIXA, REPIQUE,
 	CHOCALHO, CUICA, TAMBORIM,
-	SURDO2_SMALL, TAMBORIM_SMALL
 };
 
+// Nombre de LED par defaut (pour info)
+// AGOGO 5
+// CHOCA 7
+// CAIXA 28
+// CUICA 15 // à définir
+// REPIQUE 28
+// SURDO 42 ou 40 (petit)
+// TAMBORIM 13 ou 12 (petit)
+
 // Choix de l'instrument
-#define INSTRU TAMBORIM_SMALL
+#define INSTRU TAMBORIM
 #define NBPIX 12
 
 // Forme de l'instrument
@@ -24,18 +32,6 @@ enum {
 #define CIRCULAR 1
 #define BIG_CIRCULAR 2
 
-// Nombre de LED par defaut
-#define NB_LED_AGOGO 5
-#define NB_LED_CHOCA 7
-#define NB_LED_CAIXA 28
-#define NB_LED_CUICA 15 // à définir
-#define NB_LED_REPIQUE 28
-#define NB_LED_SURDO 42
-#define NB_LED_TAMBORIM 13
-
-// Nombre de LED exceptionnel
-#define NB_LED_SURDO_SMALL 40
-#define NB_LED_TAMBORIM_SMALL 12
 
 // Luminosité
 #define BRIGHTNESS_SURDO 255
@@ -127,71 +123,51 @@ void setup()
 
 	// Définition de l'instrument
 	instrument.name = INSTRU;
+        instrument.nbLED = NBPIX;
 	switch (INSTRU) 
 	{
 	case AGOGO:
 		instrument.type = BAR;
-		instrument.nbLED = NB_LED_AGOGO;
 		instrument.brightness = BRIGHTNESS_AGOGO;
 		instrument.place = FIRST;
 		break;
 	case SURDO1:
 		instrument.type = BIG_CIRCULAR;
-		instrument.nbLED = NB_LED_SURDO;
 		instrument.brightness = BRIGHTNESS_SURDO;
 		instrument.place = LAST;
 		break;
 	case SURDO2:
 		instrument.type = BIG_CIRCULAR;
-		instrument.nbLED = NB_LED_SURDO;
 		instrument.brightness = BRIGHTNESS_SURDO;
 		instrument.place = LAST;
 		break;
 	case SURDO3:
 		instrument.type = BIG_CIRCULAR;
-		instrument.nbLED = NB_LED_SURDO;
 		instrument.brightness = BRIGHTNESS_SURDO;
 		instrument.place = LAST;
 		break;
 	case CAIXA:
 		instrument.type = CIRCULAR;
-		instrument.nbLED = NB_LED_CAIXA;
 		instrument.brightness = BRIGHTNESS_CAIXA;
 		instrument.place = BETWEEN;
 		break;
 	case REPIQUE:
 		instrument.type = CIRCULAR;
-		instrument.nbLED = NB_LED_REPIQUE;
 		instrument.brightness = BRIGHTNESS_REPIQUE;
 		instrument.place = BETWEEN;
 		break;
 	case CHOCALHO:
 		instrument.type = BAR;
-		instrument.nbLED = NB_LED_CHOCA;
 		instrument.brightness = BRIGHTNESS_CHOCA;
 		instrument.place = FIRST;
 		break;
 	case CUICA:
 		instrument.type = CIRCULAR;
-		instrument.nbLED = NB_LED_CUICA;
 		instrument.brightness = BRIGHTNESS_CUICA;
 		instrument.place = BETWEEN;
 		break;
 	case TAMBORIM:
 		instrument.type = CIRCULAR;
-		instrument.nbLED = NB_LED_TAMBORIM;
-		instrument.brightness = BRIGHTNESS_TAMBORIM;
-		instrument.place = FIRST;
-		break;
-	case SURDO2_SMALL:
-		instrument.type = BIG_CIRCULAR;
-		instrument.nbLED = NB_LED_SURDO_SMALL;
-		instrument.brightness = BRIGHTNESS_SURDO;
-		instrument.place = LAST;
-		break;
-	case TAMBORIM_SMALL:
-		instrument.type = CIRCULAR;
-		instrument.nbLED = NB_LED_TAMBORIM_SMALL;
 		instrument.brightness = BRIGHTNESS_TAMBORIM;
 		instrument.place = FIRST;
 		break;
@@ -619,7 +595,7 @@ void Sambagogo()
     if(instrument.name == AGOGO)
           colorWipe(sambaRed);
     
-    if(instrument.name == TAMBORIM || instrument.name == TAMBORIM_SMALL)
+    if(instrument.name == TAMBORIM)
           colorWipe(sambaYellow);
     
     if(instrument.name == CHOCALHO)
