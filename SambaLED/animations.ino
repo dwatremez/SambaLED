@@ -101,21 +101,20 @@ void Geo(uint8_t index)
     geoColor[2] = sambaColors[index + 7 - NBCOLOR];
   }
 
-  // geoIndexColor est l'index de la couleur de l'animation
-  uint8_t geoIndexColor = changeAfterSomeSurdoRevolutions(3,5);
+  animIndexColor = changeAfterSomeSurdoRevolutions(3,5);
 
   // Définition par placement
   if(instrument.place == FIRST)
-    colorPathBackForth(geoColor[geoIndexColor], off, instrument.lenght);
+    colorPathBackForth(geoColor[animIndexColor], off, instrument.lenght);
 
 
-  if(geoIndexColor + instrument.place < 3)
+  if(animIndexColor + instrument.place < 3)
   {
-    colorPathForward(geoColor[geoIndexColor + instrument.place], off, instrument.lenght);
+    colorPathForward(geoColor[animIndexColor + instrument.place], off, instrument.lenght);
   }
   else
   {
-    colorPathForward(geoColor[geoIndexColor + instrument.place - 3], off, instrument.lenght);
+    colorPathForward(geoColor[animIndexColor + instrument.place - 3], off, instrument.lenght);
   }
 
 }
@@ -172,17 +171,16 @@ void Wave()
 
 void Line(uint8_t nbColor, uint32_t colors[], uint8_t rev)
 {
-  // lineIndexColor est l'index de la couleur de l'animation
-  uint8_t lineIndexColor = changeAfterSomeSurdoRevolutions(nbColor,rev);
+  animIndexColor = changeAfterSomeSurdoRevolutions(nbColor,rev);
   
   
-  if(lineIndexColor + LINE < nbColor)
+  if(animIndexColor + LINE < nbColor)
   {
-    colorPathForward(colors[lineIndexColor + LINE], off, instrument.lenght);
+    colorPathForward(colors[animIndexColor + LINE], off, instrument.lenght);
   }
   else
   {
-    colorPathForward(colors[lineIndexColor + LINE - nbColor], off, instrument.lenght);
+    colorPathForward(colors[animIndexColor + LINE - nbColor], off, instrument.lenght);
   }
 
   

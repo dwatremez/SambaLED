@@ -84,6 +84,7 @@ uint8_t indexScript = 1;
 uint32_t animDelay = 1000;
 uint8_t animDirection = 0;
 uint8_t animVariation = 0; // variable pour les variations dans les animations
+uint8_t animIndexColor = 0;
 
 // Définition des couleurs utilisées
 
