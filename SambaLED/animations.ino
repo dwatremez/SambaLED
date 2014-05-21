@@ -185,4 +185,28 @@ void Wave()
   }
 }
 
+void Line(uint8_t nbColor, uint32_t colors[], uint8_t rev)
+{
+  // lineIndexColor est l'index de la couleur de l'animation
+  uint8_t lineIndexColor = changeAfterSomeSurdoRevolutions(nbColor,rev);
+  
+  
+  if(lineIndexColor + LINE < nbColor)
+  {
+    colorPathForward(colors[lineIndexColor + LINE], off, instrument.lenght);
+  }
+  else
+  {
+    colorPathForward(colors[lineIndexColor + LINE - nbColor], off, instrument.lenght);
+  }
+
+  
+  
+}
+
+void Charlie()
+{
+  Line(2,charlieColors,3);
+}
+
 

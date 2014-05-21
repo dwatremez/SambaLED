@@ -26,6 +26,7 @@ enum {
 // Choix de l'instrument
 #define INSTRU CAIXA
 #define NBPIX 28
+#define LINE 1
 
 // Forme de l'instrument
 #define BAR 0
@@ -114,6 +115,10 @@ uint32_t off = strip.Color(0,0,0);
 uint8_t indexColor = 0;
 
 uint32_t geoColor[3];
+uint32_t charlieColors[2] = {
+  sambaRed,
+  sambaWhite
+};
 
 
 void setup()

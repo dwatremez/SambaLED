@@ -32,7 +32,7 @@ void playScript(uint16_t s)
     Sambagogo();
     break;
   case KEY_9:
-    Wave();
+    Line(NBCOLOR, sambaColors, 3 );
     break;
   case KEY_ASTERISK:
     break;

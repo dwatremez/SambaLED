@@ -17,12 +17,12 @@ uint32_t oneColorEachLoop()
 }
 
 // Chnagement après un certain temps
-uint8_t changeAfterSomeSurdoRevolutions(uint8_t nb, uint8_t rev)
+uint8_t changeAfterSomeSurdoRevolutions(uint8_t nb_entry, uint8_t rev)
 {
   if(indexLED == instrument.nbLED - 1)
     animVariation += 2 * instrument.type;
     
-  if(animVariation >= nb * rev * 2 * BIG_CIRCULAR)
+  if(animVariation >= nb_entry * rev * 2 * BIG_CIRCULAR)
     animVariation = 0;
     
   return floor(animVariation / (2 * rev * BIG_CIRCULAR));
