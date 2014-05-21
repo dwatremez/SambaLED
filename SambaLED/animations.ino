@@ -109,28 +109,13 @@ void Geo(uint8_t index)
     colorPathBackForth(geoColor[geoIndexColor], off, instrument.lenght);
 
 
-  if(instrument.place == BETWEEN)
+  if(geoIndexColor + instrument.place < 3)
   {
-    if(geoIndexColor + 1 < 3)
-    {
-      colorPathForward(geoColor[geoIndexColor + 1], off, instrument.lenght);
-    }
-    else
-    {
-      colorPathForward(geoColor[geoIndexColor + 1 - 3], off, instrument.lenght);
-    }
+    colorPathForward(geoColor[geoIndexColor + instrument.place], off, instrument.lenght);
   }
-
-  if(instrument.place == LAST)  
+  else
   {
-    if(geoIndexColor + 2 < 3)
-    {
-      colorPathForward(geoColor[geoIndexColor + 2], off, instrument.lenght);
-    }
-    else
-    {
-      colorPathForward(geoColor[geoIndexColor + 2 - 3], off, instrument.lenght);
-    }
+    colorPathForward(geoColor[geoIndexColor + instrument.place - 3], off, instrument.lenght);
   }
 
 }
