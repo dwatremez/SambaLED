@@ -1,195 +1,208 @@
-// Animations Complètes
-
-void Brasil()
-{
-  if(instrument.type == BAR)
-  {
-    if(animVariation == 0)
-    {
-      colorWipe(sambaYellow);
-      if(indexLED == instrument.nbLED - 1)
-        animVariation = 1;
-    }
-    else
-    {
-      colorWipe(sambaGreen);
-      if(indexLED == instrument.nbLED - 1)
-        animVariation = 0;
-    }     
+void animationBrasil() {
+  if (instrument.type==BARRE) {
+    scriptGauge(colorGreen, colorOff, colorYellow, colorOff);
   }
-
-  if(instrument.type == CIRCULAR || instrument.name == SURDO3)
-  {
-    colorPathForward(sambaYellow, off, instrument.lenght);
-    colorPathBackward(sambaGreen, off, instrument.lenght);           
-
+  else if (instrument.name==SURDO1) {
+    scriptPathForward(colorYellow, colorOff, 0, 3);
   }
-
-  if(instrument.name == SURDO1)
-    colorPathForward(sambaYellow, off, instrument.lenght);
-
-  if(instrument.name == SURDO2)
-    colorPathBackward(sambaGreen, off, instrument.lenght);
+  else if(instrument.name == SURDO2) {
+    scriptPathBackward(colorGreen, colorOff, 0, 3);
+  }
+  else {
+    scriptPathForward(colorYellow, colorOff, 0, 3);
+    scriptPathBackward(colorGreen, colorOff, 0, 3);
+  }
 }
 
-void Mangueira()
-{
-  if(instrument.type == BAR)
-    colorPathBackForth(sambaFuchsia, sambaGreen, 1);
-
-  if(instrument.type == CIRCULAR || instrument.name == SURDO3)
-    colorPathForward(sambaGreen, sambaFuchsia, 0.5 * instrument.nbLED);
-
-  if(instrument.name == SURDO1)
-    colorPathForward(sambaFuchsia, off, 0.5 * instrument.nbLED);
-
-  if(instrument.name == SURDO2)
-    colorPathForward(sambaGreen, off, 0.5 * instrument.nbLED);
-
+void animationGirls() {
+  if(instrument.name==SURDO1) {
+    scriptPathBackward(colorEmeraud, colorOff, 0, 3);
+  }
+  else if(instrument.name==SURDO2) {
+    scriptPathForward(colorCuisseDeNimpheEmue, colorOff, 0, 3);
+  }
+  else if(instrument.name==SURDO3) {
+    scriptGauge(colorEmeraud, colorOff, colorCuisseDeNimpheEmue, colorOff);
+  }
+  else {
+    scriptGauge(colorEmeraud, colorCuisseDeNimpheEmue, colorCuisseDeNimpheEmue, colorEmeraud);
+  }
 }
 
-void Girls()
-{
-
-  if(instrument.type == BAR)
-    colorGauge(sambaEmeraud, sambaCuisseDeNimpheEmue);
-  if(instrument.type == CIRCULAR)
-    colorGauge(sambaEmeraud, sambaCuisseDeNimpheEmue);
-
-  if(instrument.name == SURDO1)
-    colorPathBackward(sambaEmeraud, off, instrument.lenght);
-  if(instrument.name == SURDO2)
-    colorPathForward(sambaCuisseDeNimpheEmue, off, instrument.lenght);  
-
-  if(instrument.name == SURDO3)
-  {
-    if(animVariation == 0)
-    {
-      colorPathForward(sambaEmeraud, off, instrument.lenght);
-      if(indexLED == instrument.nbLED - 1)
-        animVariation = 1;
-    }
-    else
-    {
-      colorPathBackward(sambaCuisseDeNimpheEmue, off, instrument.lenght);
-      if(indexLED == instrument.nbLED - 1)
-        animVariation = 0;
-    }     
+void animationMangueira() {
+  if(instrument.type==BARRE) {
+    scriptGauge(colorFuchsia, colorGreen, colorGreen, colorFuchsia);
   }
-
+  else if(instrument.name==SURDO1) {
+    scriptPathForward(colorFuchsia, colorOff, 0, 3);
+  }
+  else if(instrument.name==SURDO2) {
+    scriptPathForward(colorGreen, colorOff, 0, 3);
+  }
+  else {
+    scriptPathForward(colorGreen, colorFuchsia, 0, 3);
+  }
 }
 
+void animationSambagogo() {
+  if ((instrument.name==AGOGO) || (instrument.name==CAIXA)) {
+    scriptPathForward(colorRed, colorOff, 0, 3);
+  }
+  else if ((instrument.name==TAMBORIM) || (instrument.name==REPIQUE)) {
+    scriptPathForward(colorYellow, colorOff, 0, 3);
+  }
+  else {
+    scriptPathForward(colorCarrot, colorOff, 0, 3);
+  }
+}
 
-void Geo(uint8_t index)
-{
-  // Définition GeoColor
-  geoColor[0] = sambaColors[index];
-  if(index + 1 < NBCOLOR)
-  {
-    geoColor[1] = sambaColors[index + 1];
+void animationDrums() {
+  if ((instrument.name==CAIXA) || (instrument.name==REPIQUE)) {
+    scriptPathForward(colorCarrot, colorOff, 0, 5);
+    scriptPathBackward(colorRed, colorOff, 0, 5);
   }
-  else
-  {
-    geoColor[1] = sambaColors[index + 1 - NBCOLOR];
+  else {
+    scriptPathForward(colorOff, colorOff, 0, 1);
   }
-  if(index + 7 < NBCOLOR)
-  {
-    geoColor[2] = sambaColors[index + 7];
-  }
-  else
-  {
-    geoColor[2] = sambaColors[index + 7 - NBCOLOR];
-  }
+}
 
+/*void animationGeo(uint8_t index) {
+  geoColor[0] = colors[index];
+  if(index + 1 < NBCOLOR) {
+    geoColor[1] = colors[index + 1];
+  }
+  else {
+    geoColor[1] = colors[index + 1 - NBCOLOR];
+  }
+  if(index + 7 < NBCOLOR) {
+    geoColor[2] = colors[index + 7];
+  }
+  else {
+    geoColor[2] = colors[index + 7 - NBCOLOR];
+  }
   animIndexColor = changeAfterSomeSurdoRevolutions(3,5);
-
   // Définition par placement
-  if(instrument.place == FIRST)
-    colorPathBackForth(geoColor[animIndexColor], off, instrument.lenght);
+//  if(instrument.place == FIRST)
+//    colorPathBackForth(geoColor[animIndexColor], colorOff, instrument.length);
+ // if(animIndexColor + instrument.place < 3) {
+ //   colorPathForward(geoColor[animIndexColor + instrument.place], colorOff, instrument.length);
+ // }
+ // else {
+ //   colorPathForward(geoColor[animIndexColor + instrument.place - 3], colorOff, instrument.length);
+ // }
+}*/
 
-
-  if(animIndexColor + instrument.place < 3)
-  {
-    colorPathForward(geoColor[animIndexColor + instrument.place], off, instrument.lenght);
+/*void animationWave() {
+  if(instrument.type==CERCLE) {
+//    colorPathForward(colorEmeraud, colorOff, instrument.length);
+//    colorPathBackward(colorBlue, colorOff, instrument.length);
   }
-  else
-  {
-    colorPathForward(geoColor[animIndexColor + instrument.place - 3], off, instrument.lenght);
+  else {
+    setCurrentPixel(colorOff);
   }
+}*/
 
-}
-
-void Sambagogo()
-{
-  if(instrument.name == AGOGO)
-    colorWipe(sambaRed);
-
-  if(instrument.name == TAMBORIM)
-    colorWipe(sambaYellow);
-
-  if(instrument.name == CHOCALHO)
-    colorWipe(sambaCarrot);
-
-  if(instrument.name == CAIXA)
-    colorWipe(sambaCarrot);
-
-  if(instrument.name == REPIQUE)
-    colorWipe(sambaYellow);
-
-  if(instrument.type == BIG_CIRCULAR)
-    colorWipe(sambaRed);
-}
-
-void Drums()
-{
-  if(instrument.name != CAIXA && instrument.name != REPIQUE)
-  {
-    colorWipe(off);
-  }
-  else
-  {          
-    colorPathForward(sambaCarrot, off, instrument.lenght);
-    colorPathBackward(sambaRed, off, instrument.lenght);          
-  }
-
-
-}
-
-void Wave()
-{
-  if(instrument.type != BIG_CIRCULAR)
-  {
-    colorWipe(off);
-  }
-  else
-  {
-    colorPathForward(sambaEmeraud, off, instrument.lenght);
-    colorPathBackward(sambaBlue, off, instrument.lenght);
-
-  }
-}
-
-void Line(uint8_t nbColor, uint32_t colors[], uint8_t rev)
-{
+/*void animationLine(uint8_t nbColor, uint32_t colors[], uint8_t rev) {
   animIndexColor = changeAfterSomeSurdoRevolutions(nbColor,rev);
-  
-  
-  if(animIndexColor + LINE < nbColor)
-  {
-    colorPathForward(colors[animIndexColor + LINE], off, instrument.lenght);
+  if(animIndexColor + LINE < nbColor) {
+    colorPathForward(colors[animIndexColor + LINE], colorOff, instrument.length);
   }
-  else
-  {
-    colorPathForward(colors[animIndexColor + LINE - nbColor], off, instrument.lenght);
+  else {
+    colorPathForward(colors[animIndexColor + LINE - nbColor], colorOff, instrument.length);
   }
+}*/
 
-  
-  
+/*void animationCharlie() {
+  animationLine(2,charlieColors,3);
+}*/
+
+void animationLignes(uint32_t colorImpair, uint32_t colorPair) {
+  if (instrument.ligne%2==0) {
+    scriptSetAll(colorPair);
+  }
+  else {
+    scriptSetAll(colorImpair);
+  }
 }
 
-void Charlie()
-{
-  Line(2,charlieColors,3);
+void animationGaucheDroite(uint32_t colorGauche, uint32_t colorDroite) {
+  if (instrument.gauche==1) {
+    scriptSetAll(colorGauche);
+  }
+  else {
+    scriptSetAll(colorDroite);
+  }
 }
 
+void animationInstrumentsChoregraphie(uint32_t colorChore, uint32_t colorPasChore) {
+  if ((instrument.type==BARRE) || (instrument.name==TAMBORIM)) {
+    scriptSetAll(colorChore);
+  }
+  else {
+    scriptSetAll(colorPasChore);
+  }
+}
 
+void animationCharlie(uint32_t colorCharlie, uint32_t colorPasCharlie) {
+  if (instrument.charlie==1) {
+    scriptSetAll(colorCharlie);
+  }
+  else {
+    scriptSetAll(colorPasCharlie);
+  }
+}
+
+void animationShadingSlow() {
+  scriptShadeAll(0, 250, 0, 0, 100, 150, 1);
+}
+
+void animationShadingFast() {
+  scriptShadeAll(100, 0, 250, 100, 150, 100, 5);
+}
+
+void animationShadingPathSlow() {
+  scriptShadePath(0, 0, 0, 200, 200, 200, 1);
+}
+
+void animationShadingPathFast() {
+  scriptShadePath(0, 0, 0, 200, 200, 200, 5);
+}
+
+void animationLapin() {
+  int delai = 5*(instrument.ligne-1)+1;
+  if ((indexLED>=delai) && (indexLED<delai+10)) {
+    scriptShadeAll(0, 0, 0, 200, 0, 0, 20);
+  }
+  else if ((indexLED>=delai+10) && (indexLED<delai+15)) {
+    scriptShadeAll(200, 0, 0, 200, 100, 0, 20);
+  }
+  else {
+    scriptSetAll(colorOff);
+  }
+  currentModulo = 1;
+}
+
+void animationIntroVilaIsabel() {
+  if (((indexLED==1) && (instrument.name==SURDO3))
+    || ((indexLED==3) && (instrument.name==REPIQUE))
+    || ((indexLED==5) && (instrument.name==CAIXA))
+    || ((indexLED==7) && (instrument.name==TAMBORIM))
+    || ((indexLED==9) && (instrument.name==CHOCALHO))
+    || ((indexLED==11) && (instrument.name==AGOGO))
+    || ((indexLED==13) && ((instrument.name==SURDO1) || (instrument.name==SURDO2)))
+    || (indexLED==15)) {
+    scriptSetAll(colorBlue);
+  }
+  else if (indexLED==17) { // tout le monde crie
+    scriptSetAll(colorGreen);
+  }
+  else {
+    scriptSetAll(colorOff);
+  }
+  currentModulo = 1;
+}
+
+void animationShadingOff() {
+  scriptShadingOff();
+  currentModulo = 1;
+}
